@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="CSVFileReaders\**" />
+      <Compile Update="TextHandling\CsvLineHandler.cs">
+        <Link>CsvHandling\CsvLineHandler.cs</Link>
+      </Compile>
+      <Compile Update="TextHandling\Interfaces\Sorting\IFileSorter.cs">
+        <Link>CsvHandling\Interfaces\Sorting\IFileSorter.cs</Link>
+      </Compile>
+      <Compile Remove="TextHandling\**" />
+      <Compile Remove="CsvExplorer.Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="CSVFileReaders\**" />
+      <EmbeddedResource Remove="TextHandling\**" />
+      <EmbeddedResource Remove="CsvExplorer.Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="CSVFileReaders\**" />
+      <None Remove="TextHandling\**" />
+      <None Remove="CsvExplorer.Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="CSVFileReaders\CSVFileReaders.csproj" />
+      <ProjectReference Include="TextHandling\TextHandling.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NUnit" Version="4.2.2" />
+    </ItemGroup>
+
+</Project>
