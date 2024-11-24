@@ -26,6 +26,6 @@ class Program
 		
 		
 		Console.WriteLine(biggestSum);
-		Console.WriteLine($"The biggest line is {sumInLineCounter.IndexOfLineWithBiggestSum}");
+		Console.WriteLine($"The line with the biggest sum is {sumInLineCounter.IndexOfLineWithBiggestSum}");
 	}
 }
