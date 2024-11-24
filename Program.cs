@@ -1,11 +1,10 @@
-﻿using CSVFileReaders;
-using CsvHandling;
+﻿using CsvHandling;
 
 namespace CSVConsoleExplorer;
 
 class Program
 {
-	static async Task Main(string[] args)
+	public static async Task Main(string[] args)
 	{
 		string? path = Console.ReadLine();
 
@@ -14,13 +13,19 @@ class Program
 			Console.WriteLine("Please specify a file path");
 			return;
 		}
+
+		CsvLineLinesParser lineParser = new(path);
+		var parsedData = lineParser.HandleLines();
 		
-		CsvFileReader reader = new(path);
-		var fileData = await reader.GetFileLinesAsync();
-		NumberSorter numberSorter = new(fileData);
-		SumCounter lh = new(numberSorter);
+		//CsvUnprocessedLineHandler unprocessedLineHandler = new(parsedData);
+		//var unpData = unprocessedLineHandler.HandleLines();
+		SumInLineCounter sumInLineCounter = new(parsedData);
+		//lineParser.SetNextHandler(unprocessedLineHandler);
+
+		int biggestSum = await sumInLineCounter.GetBiggestSumAsync();
 		
-		int maxSum = lh.GetMaxSumInLines();
-		Console.WriteLine($"Line: {lh.MaxSumLine} \t Value: {maxSum}");
+		
+		Console.WriteLine(biggestSum);
+		Console.WriteLine($"The biggest line is {sumInLineCounter.IndexOfLineWithBiggestSum}");
 	}
 }

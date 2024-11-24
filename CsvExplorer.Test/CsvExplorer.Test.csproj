@@ -18,7 +18,7 @@
 
 
     <ItemGroup>
-      <ProjectReference Include="..\CSVConsoleExplorer.csproj" />
+      <ProjectReference Include="..\CsvConsoleExplorer.csproj" />
       <ProjectReference Include="..\TextHandling\TextHandling.csproj" />
     </ItemGroup>
 

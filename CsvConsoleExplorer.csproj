@@ -5,6 +5,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>CSVConsoleExplorer</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,27 +18,29 @@
       </Compile>
       <Compile Remove="TextHandling\**" />
       <Compile Remove="CsvExplorer.Test\**" />
+      <Compile Remove="CsvFileReader\**" />
+      <Compile Remove="CsvFileReaders\obj\**" />
+      <Compile Remove="Parser.cs" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="CSVFileReaders\**" />
       <EmbeddedResource Remove="TextHandling\**" />
       <EmbeddedResource Remove="CsvExplorer.Test\**" />
+      <EmbeddedResource Remove="CsvFileReader\**" />
+      <EmbeddedResource Remove="CsvFileReaders\obj\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="CSVFileReaders\**" />
       <None Remove="TextHandling\**" />
       <None Remove="CsvExplorer.Test\**" />
+      <None Remove="CsvFileReader\**" />
+      <None Remove="CsvFileReaders\obj\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="CSVFileReaders\CSVFileReaders.csproj" />
       <ProjectReference Include="TextHandling\TextHandling.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="NUnit" Version="4.2.2" />
     </ItemGroup>
 
 </Project>

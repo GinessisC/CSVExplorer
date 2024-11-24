@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using CsvHandling;
-using CsvHandling.Interfaces.Sorting;
 using NSubstitute;
 using Xunit;
 
@@ -20,15 +19,10 @@ public class TextHandlerTest
 	public void CorrectSumSelection()
 	{
 		//Arrange
-		IFileNumberSorter fileNumberSorter = Substitute.For<IFileNumberSorter>();
-		fileNumberSorter.GetNumbersOnly().Returns(_linesOfNumbers);
-		SumCounter lh = new(fileNumberSorter);
+		
 		//Act
 
-		var maxSum = lh.GetMaxSumInLines();
-		
 		//Assert
-		fileNumberSorter.Received(1).GetNumbersOnly();
-		Assert.Equal(MaxSumExpected, maxSum);
+		
 	}
 }

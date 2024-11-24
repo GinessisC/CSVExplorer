@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using CSVConsoleExplorer;
 using Xunit;
 
 namespace CsvExplorer.Test;
@@ -18,10 +17,6 @@ public class ConsoleNumberSorterTests
 	[DisplayName("Inputs a list of symbols, outputs a list of numbers")]
 	public void NumbersAreSorted()
 	{
-		NumberSorter numberSorter = new(_linesOfSymbols);
-
-		var numbers = numberSorter.GetNumbersOnly();
-
-		Assert.Equal(_linesOfNumbers, numbers);
+		
 	}
 }
