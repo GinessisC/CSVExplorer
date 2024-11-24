@@ -31,18 +31,5 @@ public class LineLinesStatistics : CsvLineLinesHandlerBase
 		return maxSum;
 	}
 	
-	protected override bool CanHandleLines(CsvFile csvFile)
-	{
-		return true;
-	}
-
-	protected override bool CanHandleLines(IEnumerable<CsvLine> lines)
-	{
-		throw new NotImplementedException();
-	}
-
-	protected override IAsyncEnumerable<CsvLine> GetHandledResult()
-	{
-		
-	}
+	
 }
