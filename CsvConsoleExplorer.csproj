@@ -21,6 +21,18 @@
       <Compile Remove="CsvFileReader\**" />
       <Compile Remove="CsvFileReaders\obj\**" />
       <Compile Remove="Parser.cs" />
+      <Compile Include="TextHandling\Components\CsvLine.cs" />
+      <Compile Include="TextHandling\CsvLineLinesHandlerBase.cs" />
+      <Compile Include="TextHandling\CsvLineLinesParser.cs" />
+      <Compile Include="TextHandling\CsvUnprocessedLineHandler.cs" />
+      <Compile Include="TextHandling\Interfaces\ICsvLineHandler.cs" />
+      <Compile Include="TextHandling\Interfaces\IMessagesDisplayer.cs" />
+      <Compile Include="TextHandling\Main\CsvLineLinesHandlerBase.cs" />
+      <Compile Include="TextHandling\Main\CsvLineLinesParser.cs" />
+      <Compile Include="TextHandling\Main\CsvUnprocessedLineHandler.cs" />
+      <Compile Include="TextHandling\Main\NumericalLineHandler.cs" />
+      <Compile Include="TextHandling\NumericalLineHandler.cs" />
+      <Compile Remove="TextHandling\Main\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -29,6 +41,7 @@
       <EmbeddedResource Remove="CsvExplorer.Test\**" />
       <EmbeddedResource Remove="CsvFileReader\**" />
       <EmbeddedResource Remove="CsvFileReaders\obj\**" />
+      <EmbeddedResource Remove="TextHandling\Main\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -37,10 +50,7 @@
       <None Remove="CsvExplorer.Test\**" />
       <None Remove="CsvFileReader\**" />
       <None Remove="CsvFileReaders\obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="TextHandling\TextHandling.csproj" />
+      <None Remove="TextHandling\Main\**" />
     </ItemGroup>
 
 </Project>

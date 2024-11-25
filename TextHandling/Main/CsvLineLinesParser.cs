@@ -20,12 +20,6 @@ public class CsvLineLinesParser : CsvLineLinesHandlerBase
 	{
 		return File.Exists(PathToCsvFile);
 	}
-
-	protected override async Task FilterLines()
-	{
-		throw new NotImplementedException();
-	}
-
 	protected override async IAsyncEnumerable<CsvLine> GetHandledResult()
 	{
 		//CopyFileToProjectDirectory();

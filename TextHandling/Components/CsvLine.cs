@@ -1,11 +1,11 @@
-namespace CsvHandling.Components;
+namespace CSVConsoleExplorer.TextHandling.Components;
 
 public class CsvLine
 {
-	public List<string> Elements { get; private set; }
-	public bool CanBeHandled { get; init; }
-	
-	public CsvLine(List<string> elements, bool canBeHandled)
+	public bool CanBeHandled { get; private set; }
+	public IAsyncEnumerable<string> Elements { get; private set; }
+
+	public CsvLine(IAsyncEnumerable<string> elements, bool canBeHandled)
 	{
 		Elements = elements;
 		CanBeHandled = canBeHandled;
