@@ -1,36 +1,41 @@
-using System.Collections.Generic;
-using CSVConsoleExplorer.TextHandling;
 using CSVConsoleExplorer.TextHandling.Components;
 
 namespace CSVConsoleExplorer.TextHandling;
 
-public class CsvUnprocessedLineHandler : CsvLineLinesHandlerBase
+public class CsvUnprocessedLineHandler
 {
 	private readonly IAsyncEnumerable<CsvLine> _csvLines;
-
 	public CsvUnprocessedLineHandler(IAsyncEnumerable<CsvLine> csvLines)
 	{
 		_csvLines = csvLines;
 	}
-
-	protected override bool CanHandleLines()
+	public async IAsyncEnumerable<KeyValuePair<int, CsvLine>> GetUnprocessedCsvLines()
 	{
-		return _csvLines.ToBlockingEnumerable().Any();
-	}
-
-	protected override async Task FilterLines()
-	{
-		throw new NotImplementedException();
-	}
-
-	protected override async IAsyncEnumerable<CsvLine> GetHandledResult()
-	{
+		int i = 0;
 		await foreach (var line in _csvLines)
 		{
-			if (line.CanBeHandled)
+			i++;
+			if (await IsLineUnprocessed(line))
 			{
-				yield return line;
+				yield return new KeyValuePair<int, CsvLine>(i, line);
 			}
 		}
+	}
+
+	private async Task<bool> IsLineUnprocessed(CsvLine line)
+	{
+		bool isLineUnprocessed = false;
+		await foreach (var element in line.Elements)
+		{
+			if (!IsNumber(element))
+			{
+				isLineUnprocessed = true;
+			}
+		}
+		return isLineUnprocessed;
+	}
+	private bool IsNumber(string element)
+	{
+		return element.All(char.IsDigit);
 	}
 }

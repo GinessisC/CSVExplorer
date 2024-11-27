@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "D:\\work\\Study\\CSVExplorer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{130D5C55-7103-44B4-A5E5-290D554A5099}|CSVConsoleExplorer.csproj|d:\\work\\study\\csvexplorer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{130D5C55-7103-44B4-A5E5-290D554A5099}|CSVConsoleExplorer.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{130D5C55-7103-44B4-A5E5-290D554A5099}|CsvConsoleExplorer.csproj|d:\\work\\study\\csvexplorer\\texthandling\\interfaces\\imessagesdisplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{130D5C55-7103-44B4-A5E5-290D554A5099}|CsvConsoleExplorer.csproj|solutionrelative:texthandling\\interfaces\\imessagesdisplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{130D5C55-7103-44B4-A5E5-290D554A5099}|CsvConsoleExplorer.csproj|d:\\work\\study\\csvexplorer\\texthandling\\interfaces\\icsvlinehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{130D5C55-7103-44B4-A5E5-290D554A5099}|CsvConsoleExplorer.csproj|solutionrelative:texthandling\\interfaces\\icsvlinehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B2E19B7-085E-4ED3-B8FA-A59BA673B7C1}|CsvExplorer.Test\\CsvExplorer.Test.csproj|d:\\work\\study\\csvexplorer\\csvexplorer.test\\consolenumbersortertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B2E19B7-085E-4ED3-B8FA-A59BA673B7C1}|CsvExplorer.Test\\CsvExplorer.Test.csproj|solutionrelative:csvexplorer.test\\consolenumbersortertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B2E19B7-085E-4ED3-B8FA-A59BA673B7C1}|CsvExplorer.Test\\CsvExplorer.Test.csproj|d:\\work\\study\\csvexplorer\\csvexplorer.test\\csvexplorertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B2E19B7-085E-4ED3-B8FA-A59BA673B7C1}|CsvExplorer.Test\\CsvExplorer.Test.csproj|solutionrelative:csvexplorer.test\\csvexplorertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +26,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 40,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IMessagesDisplayer.cs",
+              "DocumentMoniker": "D:\\work\\Study\\CSVExplorer\\TextHandling\\Interfaces\\IMessagesDisplayer.cs",
+              "RelativeDocumentMoniker": "TextHandling\\Interfaces\\IMessagesDisplayer.cs",
+              "ToolTip": "D:\\work\\Study\\CSVExplorer\\TextHandling\\Interfaces\\IMessagesDisplayer.cs",
+              "RelativeToolTip": "TextHandling\\Interfaces\\IMessagesDisplayer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T21:50:44.843Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ICsvLineHandler.cs",
+              "DocumentMoniker": "D:\\work\\Study\\CSVExplorer\\TextHandling\\Interfaces\\ICsvLineHandler.cs",
+              "RelativeDocumentMoniker": "TextHandling\\Interfaces\\ICsvLineHandler.cs",
+              "ToolTip": "D:\\work\\Study\\CSVExplorer\\TextHandling\\Interfaces\\ICsvLineHandler.cs",
+              "RelativeToolTip": "TextHandling\\Interfaces\\ICsvLineHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T21:44:08.293Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:159:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -178,15 +216,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\work\\Study\\CSVExplorer\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\work\\Study\\CSVExplorer\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAmAAAA",
+              "DocumentIndex": 2,
+              "Title": "ConsoleNumberSorterTests.cs",
+              "DocumentMoniker": "D:\\work\\Study\\CSVExplorer\\CsvExplorer.Test\\ConsoleNumberSorterTests.cs",
+              "RelativeDocumentMoniker": "CsvExplorer.Test\\ConsoleNumberSorterTests.cs",
+              "ToolTip": "D:\\work\\Study\\CSVExplorer\\CsvExplorer.Test\\ConsoleNumberSorterTests.cs",
+              "RelativeToolTip": "CsvExplorer.Test\\ConsoleNumberSorterTests.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T13:36:37.071Z",
+              "WhenOpened": "2024-11-25T21:42:58.58Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CsvExplorerTest.cs",
+              "DocumentMoniker": "D:\\work\\Study\\CSVExplorer\\CsvExplorer.Test\\CsvExplorerTest.cs",
+              "RelativeDocumentMoniker": "CsvExplorer.Test\\CsvExplorerTest.cs",
+              "ToolTip": "D:\\work\\Study\\CSVExplorer\\CsvExplorer.Test\\CsvExplorerTest.cs",
+              "RelativeToolTip": "CsvExplorer.Test\\CsvExplorerTest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T21:42:48.197Z",
               "EditorCaption": ""
             }
           ]

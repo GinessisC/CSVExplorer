@@ -14,5 +14,5 @@ public abstract class CsvLineLinesHandlerBase : ICsvLineHandler
 	}
 
 	protected abstract bool CanHandleLines();
-	protected abstract Task FilterLines();
+	protected abstract void FilterLines();
 }

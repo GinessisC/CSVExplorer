@@ -2,25 +2,29 @@ using CSVConsoleExplorer.TextHandling.Components;
 
 namespace CSVConsoleExplorer.TextHandling;
 
-public class NumericalLineHandler : CsvLineLinesHandlerBase
+public class NumericalLineHandler
 {
 	private readonly IAsyncEnumerable<CsvLine?> _allCsvLines;
-
-	public KeyValuePair<int, int> LineNumberMaxSumPair { get; private set; }
+	private KeyValuePair<int, int> LineNumberMaxSumPair { get; set; }
 	
-	public NumericalLineHandler(IAsyncEnumerable<CsvLine?> allCsvLines)
+	public NumericalLineHandler(IAsyncEnumerable<CsvLine> allCsvLines)
 	{
 		_allCsvLines = allCsvLines;
 	}
 
-	private async Task<KeyValuePair<int, int>> GetLineNumberMaxSumPair()
+	public async Task<KeyValuePair<int, int>> GetLineNumberMaxSumPair()
 	{
+		
 		int maxSum = 0;
 		int i = 0;
 		int lineNumberWithMaxSum = 0;
 		
 		await foreach (var line in _allCsvLines)
 		{
+			if (!IsNumericalLine(line))
+			{
+				continue;
+			}
 			i++;
 			
 			var numbers = line?.Elements.ToBlockingEnumerable().Select(int.Parse);
@@ -36,19 +40,6 @@ public class NumericalLineHandler : CsvLineLinesHandlerBase
 		return new KeyValuePair<int, int>(lineNumberWithMaxSum, maxSum);
 	}
 
-	protected override bool CanHandleLines()
-	{
-		return _allCsvLines.ToBlockingEnumerable().All(IsNumericalLine);
-	}
-	// private bool IsNumber(string str)
-	// {
-	// 	
-	// 	//return int.TryParse(str, out _); - what does it mean?
-	// }
-	protected override async Task FilterLines()
-	{
-		LineNumberMaxSumPair = await GetLineNumberMaxSumPair();
-	}
 	private bool IsNumericalLine(CsvLine? line)
 	{
 		var filteredLine = line?.Elements.ToBlockingEnumerable()

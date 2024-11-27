@@ -1,55 +1,30 @@
 using CSVConsoleExplorer.TextHandling;
 using CSVConsoleExplorer.TextHandling.Components;
+using CSVConsoleExplorer.TextHandling.Extensions;
 
 namespace CSVConsoleExplorer.TextHandling;
 
-public class CsvLineLinesParser : CsvLineLinesHandlerBase
+public static class CsvLineLinesParser
 {
-	private const string Separator = ";";
-	private const string TempTxtFileName = "temp.txt";
-	private static readonly string _currentDirectory = Directory.GetCurrentDirectory();
-	private readonly string _fullPathToTempFile = Path.Combine(_currentDirectory, TempTxtFileName);
-	private string PathToCsvFile { get; }
+	private const string Separator = ",";
 	
-	public CsvLineLinesParser(string pathToCsvFile)
+	public static async IAsyncEnumerable<CsvLine> ParseCsvFile(string csvFilePath)
 	{
-		PathToCsvFile = pathToCsvFile;
-	}
-	
-	protected override bool CanHandleLines()
-	{
-		return File.Exists(PathToCsvFile);
-	}
-
-	protected override async Task FilterLines()
-	{
-		throw new NotImplementedException();
-	}
-
-	protected override async IAsyncEnumerable<CsvLine> GetHandledResult()
-	{
-		//CopyFileToProjectDirectory();
-		await foreach (var line in File.ReadLinesAsync(_fullPathToTempFile))
+		await foreach (var line in File.ReadLinesAsync(csvFilePath))
 		{
 			var elements = line.Split(Separator).ToList();
+			IEnumerable<string> filteredLine = DeleteUnnecessaryElements(elements);
+			IAsyncEnumerable<string> filteredLineAsync = filteredLine.ToAsyncEnumerable();
 			
-			bool canBeHandled = elements.All(IsNumber);
-			
-			yield return new CsvLine(elements, canBeHandled);
+			yield return new CsvLine(filteredLineAsync);
 		}
-		//DeleteTempFile();
 	}
-	
-	private void CopyFileToProjectDirectory()
+	private static IEnumerable<string> DeleteUnnecessaryElements(List<string> elements)
 	{
-		File.Copy(PathToCsvFile, $"{_fullPathToTempFile}");
-	}
-	private void DeleteTempFile()
-	{
-		File.Delete(_fullPathToTempFile);
-	}
-	private bool IsNumber(string element)
-	{
-		return element.All(char.IsDigit);
+		IEnumerable<string> filteredLine = elements
+			.Select(element => element)
+			.Where(element => element != string.Empty);
+
+		return filteredLine;
 	}
 }
