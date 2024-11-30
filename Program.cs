@@ -1,11 +1,12 @@
-﻿using CSVConsoleExplorer.TextHandling;
+﻿using System.Runtime.Intrinsics.Arm;
+using CSVConsoleExplorer.TextHandling;
 using CSVConsoleExplorer.TextHandling.Components;
 
 namespace CSVConsoleExplorer;
 
 class Program
 {
-	private static async Task EnumerateLines(IAsyncEnumerable<KeyValuePair<int, CsvLine>> csvLines)
+	private static async Task EnumerateLines(IAsyncEnumerable<KeyValuePair<int, CsvLine<int>>> csvLines)
 	{
 		await foreach (var countLinePair in csvLines)
 		{
@@ -21,15 +22,40 @@ class Program
 	public static async Task Main(string[] args)
 	{
 		string? path = Console.ReadLine();
-		var fileElements = CsvLineLinesParser.ParseCsvFile(path);
-		NumericalLineHandler numericalLineHandler = new(fileElements);
-		var result = await numericalLineHandler.GetLineNumberMaxSumPair();
+		CsvLineParser<int, int> parser = new();
 		
-		Console.WriteLine($"Line: {result.Key}\nMaxSum: {result.Value}");
-		CsvUnprocessedLineHandler unprocessedLineHandler = new(fileElements);
-		IAsyncEnumerable<KeyValuePair<int, CsvLine>> a = unprocessedLineHandler.GetUnprocessedCsvLines();
-		
+		if (path != null)
+		{
+			await parser.ParseCsvFile(path);
+		}
+
+		var unprocessedLineHandler = parser.UnprocessedLineHandler;
+		var lineWithTheBiggestSum = parser.LineWithTheBiggestLine;
+
+		if (lineWithTheBiggestSum != null)
+		{
+			Console.WriteLine($"Line number: {lineWithTheBiggestSum.LineWithTheBiggestSum.LineNumber}Biggest sum: {lineWithTheBiggestSum.BiggestSumInLines}");
+		}
+
 		Console.WriteLine("Unprocessed lines:\n");
-		await EnumerateLines(a);
+		
+		if (unprocessedLineHandler != null)
+		{
+			await foreach (var line in unprocessedLineHandler.UnprocessedCsvLines)
+			{
+				if (line == null)
+				{
+					continue;
+				}
+
+				if (line.Elements != null)
+				{
+					await foreach (var element in line.Elements)
+					{
+						Console.WriteLine(element);
+					}
+				}
+			}
+		}
 	}
 }

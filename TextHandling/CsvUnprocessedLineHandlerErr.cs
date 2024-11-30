@@ -2,10 +2,10 @@ using CSVConsoleExplorer.TextHandling.Components;
 
 namespace CSVConsoleExplorer.TextHandling;
 
-public class CsvUnprocessedLineHandler
+public class CsvUnprocessedLineHandlerErr
 {
 	private readonly IAsyncEnumerable<CsvLine> _csvLines;
-	public CsvUnprocessedLineHandler(IAsyncEnumerable<CsvLine> csvLines)
+	public CsvUnprocessedLineHandlerErr(IAsyncEnumerable<CsvLine> csvLines)
 	{
 		_csvLines = csvLines;
 	}

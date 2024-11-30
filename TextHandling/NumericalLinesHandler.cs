@@ -2,19 +2,17 @@ using CSVConsoleExplorer.TextHandling.Components;
 
 namespace CSVConsoleExplorer.TextHandling;
 
-public class NumericalLineHandler
+public class NumericalLinesHandler
 {
 	private readonly IAsyncEnumerable<CsvLine?> _allCsvLines;
-	private KeyValuePair<int, int> LineNumberMaxSumPair { get; set; }
 	
-	public NumericalLineHandler(IAsyncEnumerable<CsvLine> allCsvLines)
+	public NumericalLinesHandler(IAsyncEnumerable<CsvLine> allCsvLines)
 	{
 		_allCsvLines = allCsvLines;
 	}
 
-	public async Task<KeyValuePair<int, int>> GetLineNumberMaxSumPair()
+	public async Task<KeyValuePair<int, int>> GetLineNumberMaxSumPairAsync()
 	{
-		
 		int maxSum = 0;
 		int i = 0;
 		int lineNumberWithMaxSum = 0;

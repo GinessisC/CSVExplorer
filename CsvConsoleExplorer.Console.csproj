@@ -22,18 +22,19 @@
       <Compile Remove="CsvFileReaders\obj\**" />
       <Compile Remove="Parser.cs" />
       <Compile Include="TextHandling\Components\CsvLine.cs" />
-      <Compile Include="TextHandling\CsvLineLinesParser.cs" />
-      <Compile Include="TextHandling\CsvUnprocessedLineHandler.cs" />
-      <Compile Include="TextHandling\Extensions\EnumerableExtantion.cs" />
+      <Compile Include="TextHandling\CsvLineParser.cs" />
+      <Compile Include="TextHandling\Extensions\AsyncEnumerableExtensions.cs" />
+      <Compile Include="TextHandling\Extensions\CsvLineExtension.cs" />
+      <Compile Include="TextHandling\Extensions\EnumerableExtension.cs" />
       <Compile Include="TextHandling\Interfaces\ICsvLineHandler.cs" />
       <Compile Include="TextHandling\Interfaces\IMessagesDisplayer.cs" />
       <Compile Include="TextHandling\Main\CsvLineLinesHandlerBase.cs" />
       <Compile Include="TextHandling\Main\CsvLineLinesParser.cs" />
       <Compile Include="TextHandling\Main\CsvUnprocessedLineHandler.cs" />
       <Compile Include="TextHandling\Main\NumericalLineHandler.cs" />
-      <Compile Include="TextHandling\NumericalLineHandler.cs" />
       <Compile Remove="TextHandling\Main\**" />
       <Compile Remove="TextHandling\Interfaces\**" />
+      <Compile Remove="Handlers\UnprocessedLineHandler\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -44,6 +45,7 @@
       <EmbeddedResource Remove="CsvFileReaders\obj\**" />
       <EmbeddedResource Remove="TextHandling\Main\**" />
       <EmbeddedResource Remove="TextHandling\Interfaces\**" />
+      <EmbeddedResource Remove="Handlers\UnprocessedLineHandler\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -54,6 +56,7 @@
       <None Remove="CsvFileReaders\obj\**" />
       <None Remove="TextHandling\Main\**" />
       <None Remove="TextHandling\Interfaces\**" />
+      <None Remove="Handlers\UnprocessedLineHandler\**" />
     </ItemGroup>
 
 </Project>
