@@ -9,7 +9,7 @@ public class CsvLineParser<TLineNumber, TSum>
 	where TSum : INumber<TSum>
 	where TLineNumber : INumber<TLineNumber>
 {
-	private const string Separator = ";";
+	private const string Separator = ",";
 	private CsvUnprocessedLineHandler<TLineNumber>? UnprocessedLineHandler { get; set; }
 	private SumInLineCalculator<TLineNumber, TSum>? LineWithTheBiggestSum { get; set; }
 
