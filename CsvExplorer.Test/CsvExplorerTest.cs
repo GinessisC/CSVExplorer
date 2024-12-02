@@ -10,7 +10,7 @@ public class TextHandlerTest
 	private readonly List<List<int>> _linesOfNumbers = new()
 	{
 		new List<int> {1, 2, 3, 4},
-		new List<int> {100, 4, 6, 7}
+		new List<int> {100, 4, 6, 7, 1000}
 	};
 	
 	[Fact]
