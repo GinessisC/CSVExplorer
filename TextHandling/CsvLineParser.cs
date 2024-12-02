@@ -9,33 +9,53 @@ public class CsvLineParser<TLineNumber, TSum>
 	where TSum : INumber<TSum>
 	where TLineNumber : INumber<TLineNumber>
 {
-	private const string Separator = ",";
-	public CsvUnprocessedLineHandler<TLineNumber>? UnprocessedLineHandler { get; private set; }
-	public SumInLineCalculator<TLineNumber, TSum>? LineWithTheBiggestLine { get; private set; }
+	private const string Separator = ";";
+	private CsvUnprocessedLineHandler<TLineNumber>? UnprocessedLineHandler { get; set; }
+	private SumInLineCalculator<TLineNumber, TSum>? LineWithTheBiggestSum { get; set; }
 
-	public async Task ParseCsvFile(string csvFilePath)
+	public IAsyncEnumerable<CsvLine<TLineNumber>> GetUnprocessedLines()
 	{
+		if (UnprocessedLineHandler == null)
+		{
+			throw new NotImplementedException("Unprocessed lines are not identified yet");
+		}
+		return UnprocessedLineHandler.UnprocessedCsvLines!;
+	}
+	public KeyValuePair<TSum, CsvLine<TLineNumber>> GetBiggestLineSumPair()
+	{
+		if (LineWithTheBiggestSum == null)
+		{
+			throw new NotImplementedException("Line with the biggest sum is not identified yet");
+		}
+		TSum sum = LineWithTheBiggestSum.BiggestSumInLines;
+		var line = LineWithTheBiggestSum.LineWithTheBiggestSum;
+		var biggestLineSumPair = new KeyValuePair<TSum, CsvLine<TLineNumber>>(sum, line);
+		
+		return biggestLineSumPair;
+	}
+	public async Task ParseCsvFile(string csvFilePath)
+	{ 
 		var i = TLineNumber.Zero;
 		CsvUnprocessedLineHandler<TLineNumber> unprocessedLineHandler = new();
-		SumInLineCalculator<TLineNumber, TSum> sumInLineCalculator = new();
+		SumInLineCalculator<TLineNumber, TSum>? sumInLineCalculator = new();
 		unprocessedLineHandler.SetHandler(sumInLineCalculator);
 		
-		await foreach (var line in File.ReadLinesAsync(csvFilePath))
+		foreach (var line in File.ReadLines(csvFilePath))
 		{
 			i++;
 			
 			var elements = line.Split(Separator).ToList();
 			var filteredElements = FilterUnnecessaryElements(elements);
-			IAsyncEnumerable<string>? elementsAsyncEnumerable = filteredElements.ToAsyncEnumerable();
+			IAsyncEnumerable<string> elementsAsyncEnumerable = filteredElements.ToAsyncEnumerable();
 			var currentLine = new CsvLine<TLineNumber>(elementsAsyncEnumerable, i);
 			
 			unprocessedLineHandler.SetCurrentLine(currentLine);
 			sumInLineCalculator.SetCurrentLine(currentLine);
-
-			unprocessedLineHandler.HandleLine();
+			
+			await unprocessedLineHandler.HandleLine();
 		}
 		UnprocessedLineHandler = unprocessedLineHandler;
-		LineWithTheBiggestLine = sumInLineCalculator;
+		LineWithTheBiggestSum = sumInLineCalculator;
 	}
 	private static IEnumerable<string> FilterUnnecessaryElements(List<string> elements)
 	{

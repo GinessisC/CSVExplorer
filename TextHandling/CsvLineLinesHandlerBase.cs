@@ -1,15 +1,15 @@
 using CSVConsoleExplorer.TextHandling.Components;
-using CSVConsoleExplorer.TextHandling.Interfaces;
+using CSVConsoleExplorer.Interfaces;
 
 namespace CSVConsoleExplorer.TextHandling;
 
-public abstract class CsvLineLinesHandlerBase : ICsvLineHandler
+public abstract class CsvLineLinesHandlerBase : ILineHandler
 {
-	public virtual void HandleLines()
+	public virtual Task HandleLine()
 	{
 		if (CanHandleLines())
 		{
-			FilterLines();
+			await FilterLines();
 		}
 	}
 

@@ -4,11 +4,13 @@ using CSVConsoleExplorer.TextHandling.Extensions;
 
 namespace CSVConsoleExplorer.Handlers;
 
-public class CsvUnprocessedLineHandler<TLineNumber> : LineHandlerBase 
+public class CsvUnprocessedLineHandler<TLineNumber> : LineHandlerBase
 	where TLineNumber : INumber<TLineNumber>
 {
-	public IAsyncEnumerable<CsvLine<TLineNumber>?> UnprocessedCsvLines { get; private set; } = default;
-	private CsvLine<TLineNumber>? CurrentCsvLine { get; set; } = new(default, TLineNumber.Zero);
+	
+
+	public IAsyncEnumerable<CsvLine<TLineNumber>?>? UnprocessedCsvLines { get; private set; }
+	private CsvLine<TLineNumber>? CurrentCsvLine { get; set; }
 
 	public void SetCurrentLine(CsvLine<TLineNumber>? currentLine)
 	{
@@ -16,11 +18,25 @@ public class CsvUnprocessedLineHandler<TLineNumber> : LineHandlerBase
 	}
 	protected override bool CanHandle()
 	{
-		return CurrentCsvLine != null && CurrentCsvLine.IsNumerical();
+		return CurrentCsvLine != null && !CurrentCsvLine.IsNumerical();
 	}
-
+	
 	protected override async Task Handle()
 	{
-		UnprocessedCsvLines?.Append(CurrentCsvLine);
+		Task appendUnprocessedLine = Task.Run(() =>
+		{
+			if (UnprocessedCsvLines == null)
+			{
+				UnprocessedCsvLines = GetEmptyEnumerable();
+			}
+			UnprocessedCsvLines = UnprocessedCsvLines.Append(CurrentCsvLine);
+		});
+		await appendUnprocessedLine;
+	}
+
+	private static async IAsyncEnumerable<CsvLine<TLineNumber>?> GetEmptyEnumerable()
+	{
+		await Task.CompletedTask;
+		yield break;
 	}
 }
