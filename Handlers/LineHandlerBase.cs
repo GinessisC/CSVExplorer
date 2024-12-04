@@ -4,8 +4,13 @@ namespace CSVConsoleExplorer.Handlers;
 
 public abstract class LineHandlerBase : ILineHandler
 {
+	protected LineHandlerBase(IWarningsDisplayer warningsDisplayer)
+	{
+		WarningsDisplayer = warningsDisplayer;
+	}
+
 	private ILineHandler? LineHandler { get; set; }
-	
+	private IWarningsDisplayer WarningsDisplayer { get; set; }
 	public void SetHandler(ILineHandler? handler)
 	{
 		LineHandler = handler;
@@ -23,7 +28,7 @@ public abstract class LineHandlerBase : ILineHandler
 		}
 		else
 		{
-			throw new Exception("Can't handle line");
+			WarningsDisplayer.DisplayWarning("Can't handle line");
 		}
 	}
 

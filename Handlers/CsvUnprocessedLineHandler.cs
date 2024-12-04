@@ -1,18 +1,18 @@
-using System.Numerics;
+using CSVConsoleExplorer.Interfaces;
 using CSVConsoleExplorer.TextHandling.Components;
 using CSVConsoleExplorer.TextHandling.Extensions;
 
 namespace CSVConsoleExplorer.Handlers;
-
-public class CsvUnprocessedLineHandler<TLineNumber> : LineHandlerBase
-	where TLineNumber : INumber<TLineNumber>
+public class CsvUnprocessedLineHandler : LineHandlerBase
 {
-	
+	public CsvUnprocessedLineHandler(IWarningsDisplayer warningsDisplayer) : base(warningsDisplayer)
+	{
+	}
 
-	public IAsyncEnumerable<CsvLine<TLineNumber>?>? UnprocessedCsvLines { get; private set; }
-	private CsvLine<TLineNumber>? CurrentCsvLine { get; set; }
+	public IAsyncEnumerable<CsvLine?> UnprocessedCsvLines { get; private set; } = GetEmptyEnumerable();
+	private CsvLine? CurrentCsvLine { get; set; }
 
-	public void SetCurrentLine(CsvLine<TLineNumber>? currentLine)
+	public void SetCurrentLine(CsvLine currentLine)
 	{
 		CurrentCsvLine = currentLine;
 	}
@@ -25,16 +25,12 @@ public class CsvUnprocessedLineHandler<TLineNumber> : LineHandlerBase
 	{
 		Task appendUnprocessedLine = Task.Run(() =>
 		{
-			if (UnprocessedCsvLines == null)
-			{
-				UnprocessedCsvLines = GetEmptyEnumerable();
-			}
 			UnprocessedCsvLines = UnprocessedCsvLines.Append(CurrentCsvLine);
 		});
 		await appendUnprocessedLine;
 	}
 
-	private static async IAsyncEnumerable<CsvLine<TLineNumber>?> GetEmptyEnumerable()
+	private static async IAsyncEnumerable<CsvLine> GetEmptyEnumerable()
 	{
 		await Task.CompletedTask;
 		yield break;

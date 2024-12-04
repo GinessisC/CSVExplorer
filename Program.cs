@@ -1,19 +1,28 @@
-﻿using CSVConsoleExplorer.ConsoleInterfaceProviders;
+﻿using Cocona;
+using CSVConsoleExplorer;
+using CSVConsoleExplorer.TextHandling;
 
-Console.WriteLine("Welcome to CSV Console Explorer. Enter path to csv file:");
-string? path = Console.ReadLine();
+var builder = CoconaApp.CreateBuilder();
 
-if (string.IsNullOrEmpty(path))
+var app = builder.Build();
+
+//TODO: add command with parameters
+
+app.AddCommand(async () =>
 {
-	Console.WriteLine("Please specify a path to a CSV file");
-	return;
-}
-if (args.Length > 0)
-{
-	ConsoleInterfaceWithArgumentsProvider consoleInterface = new(path);
-	await consoleInterface.RunAsync();
-	return;
-}
+	var path = Console.ReadLine();
+
+	if (path != null)
+	{
+		var parsedData = await CsvLineParser.ParseCsvFile(path, new ConsoleWarningsDisplayer());
 		
-ConsoleInterfaceProvider interfaceProvider = new(path);
-await interfaceProvider.RunAsync();
+		var biggestSum = parsedData.GetBiggestLineSumPair().Key;
+		var lineNumberOfTheBiggestSum = parsedData.GetBiggestLineSumPair().Value.LineNumber;
+		var unprocessedLines = parsedData.GetUnprocessedLines();
+		
+		MessageDisplayer.DisplayBiggestSumAndLine(biggestSum, lineNumberOfTheBiggestSum);
+		await MessageDisplayer.DisplayLines(unprocessedLines);
+	}
+});
+
+app.Run();

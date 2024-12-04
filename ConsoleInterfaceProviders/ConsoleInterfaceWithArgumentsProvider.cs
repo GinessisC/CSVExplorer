@@ -1,39 +1,28 @@
 using Cocona;
+using CSVConsoleExplorer.TextHandling;
 
 namespace CSVConsoleExplorer.ConsoleInterfaceProviders;
-
-public class ConsoleInterfaceWithArgumentsProvider : InterfaceProviderBase
+public class ConsoleInterfaceWithArgumentsProvider
 {
 	private readonly string _pathToCsvFile;
 	public ConsoleInterfaceWithArgumentsProvider(string pathToCsvFile)
 	{
 		_pathToCsvFile = pathToCsvFile;
 	}
-	public override async Task RunAsync()
+	public async Task RunAsync()
 	{
-		await CoconaApp.RunAsync(async ([Argument(Description = "Path to csv file")] string path,
-			[Argument(Description = "file size of csv file: Small or Big (s/b)")]
-			string filesize) =>
+		await CoconaApp.RunAsync(async ([Argument(Description = "Path to csv file")] string path) =>
 		{
-			FileSize fileSize = FileSize.Small;
-
-			if (filesize.Contains('b', StringComparison.CurrentCultureIgnoreCase))
-			{
-				fileSize = FileSize.Big;
-			}
-			var parser = ParseFactory.DefineParser(fileSize);
-
+			var parser = new CsvLineParser();
+			
 			await parser.ParseCsvFile(_pathToCsvFile);
 
 			var biggestSum = parser.GetBiggestLineSumPair().Key;
 			var lineNumberOfTheBiggestSum = parser.GetBiggestLineSumPair().Value.LineNumber;
-			var unprocessedLines = parser.GetUnprocessedLines().Elements;
+			var unprocessedLines = parser.GetUnprocessedLines();
 
 			MessageDisplayer.DisplayBiggestSumAndLine(biggestSum, lineNumberOfTheBiggestSum);
-			if (unprocessedLines != null)
-			{
-				await MessageDisplayer.DisplayLines(unprocessedLines);
-			}
+			await MessageDisplayer.DisplayLines(unprocessedLines);
 		});
 	}
 }

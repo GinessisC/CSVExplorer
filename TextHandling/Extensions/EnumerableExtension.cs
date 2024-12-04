@@ -1,5 +1,4 @@
 namespace CSVConsoleExplorer.TextHandling.Extensions;
-
 public static class EnumerableExtension
 {
 	public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> enumerable)

@@ -7,13 +7,13 @@ namespace CSVConsoleExplorer;
 
 public static class ParseFactory
 {
-	public static dynamic DefineParser(FileSize size)
+	public static CsvLineParser DefineParsers(FileSize size)
 	{
 		return size switch
 		{
-			FileSize.Big => new CsvLineParser<long, long>(),
-			FileSize.Small => new CsvLineParser<int, int>(),
-			_ => new CsvLineParser<int, int>()
+			FileSize.Big => new CsvLineParser(),
+			FileSize.Small => new CsvLineParser(),
+			_ => new CsvLineParser()
 		};
 	}
 }

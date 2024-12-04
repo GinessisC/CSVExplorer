@@ -35,6 +35,10 @@
       <Compile Remove="TextHandling\Main\**" />
       <Compile Remove="TextHandling\Interfaces\**" />
       <Compile Remove="Handlers\UnprocessedLineHandler\**" />
+      <Compile Remove="ParseFactory.cs" />
+      <Compile Remove="Interfaces\IInterfaceProvider.cs" />
+      <Compile Remove="FileSize.cs" />
+      <Compile Remove="ConsoleInterfaceProviders\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -46,6 +50,7 @@
       <EmbeddedResource Remove="TextHandling\Main\**" />
       <EmbeddedResource Remove="TextHandling\Interfaces\**" />
       <EmbeddedResource Remove="Handlers\UnprocessedLineHandler\**" />
+      <EmbeddedResource Remove="ConsoleInterfaceProviders\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -57,6 +62,7 @@
       <None Remove="TextHandling\Main\**" />
       <None Remove="TextHandling\Interfaces\**" />
       <None Remove="Handlers\UnprocessedLineHandler\**" />
+      <None Remove="ConsoleInterfaceProviders\**" />
     </ItemGroup>
 
     <ItemGroup>

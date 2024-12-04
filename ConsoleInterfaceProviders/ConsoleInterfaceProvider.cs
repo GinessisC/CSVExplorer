@@ -1,6 +1,7 @@
-namespace CSVConsoleExplorer.ConsoleInterfaceProviders;
+using CSVConsoleExplorer.TextHandling;
 
-public class ConsoleInterfaceProvider : InterfaceProviderBase
+namespace CSVConsoleExplorer.ConsoleInterfaceProviders;
+public class ConsoleInterfaceProvider
 {
 	private readonly string _pathToCsvFile;
 
@@ -9,11 +10,9 @@ public class ConsoleInterfaceProvider : InterfaceProviderBase
 		_pathToCsvFile = pathToCsvFile;
 	}
     
-	public override async Task RunAsync()
+	public async Task RunAsync()
 	{
-		var fileSize = AskForFileSize();
-		
-		var parser = ParseFactory.DefineParser(fileSize);
+		var parser = new CsvLineParser();
 
 		await parser.ParseCsvFile(_pathToCsvFile);
 
@@ -22,23 +21,6 @@ public class ConsoleInterfaceProvider : InterfaceProviderBase
 		var unprocessedLines = parser.GetUnprocessedLines();
 
 		MessageDisplayer.DisplayBiggestSumAndLine(biggestSum, lineNumberOfTheBiggestSum);
-
-		if (unprocessedLines != null)
-		{
-			await MessageDisplayer.DisplayLines(unprocessedLines);
-		}
-	}
-
-	private FileSize AskForFileSize()
-	{
-		FileSize fileSize = FileSize.Small;
-		Console.WriteLine("Please enter a file size: Small/Big (s/b): ");
-		var inputFileSize = Console.ReadLine();
-		
-		if (inputFileSize != null && inputFileSize.ToLower().Contains('b'))
-		{
-			fileSize = FileSize.Big;
-		}
-		return fileSize;
+		await MessageDisplayer.DisplayLines(unprocessedLines);
 	}
 }
