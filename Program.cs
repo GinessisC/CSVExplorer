@@ -6,22 +6,28 @@ var builder = CoconaApp.CreateBuilder();
 
 var app = builder.Build();
 
-//TODO: add command with parameters
-
+static async Task ParseCsvFileAndDisplayData(string csvFilePath)
+{
+	var parsedData = await CsvLineParser.ParseCsvFile(csvFilePath, new ConsoleWarningsDisplayer());
+		
+	var biggestSum = parsedData.GetBiggestLineSumPair().Key;
+	var lineNumberOfTheBiggestSum = parsedData.GetBiggestLineSumPair().Value.LineNumber;
+	var unprocessedLines = parsedData.GetUnprocessedLines();
+		
+	MessageDisplayer.DisplayBiggestSumAndLine(biggestSum, lineNumberOfTheBiggestSum);
+	await MessageDisplayer.DisplayLines(unprocessedLines);	
+}
+app.AddCommand(async (string path) =>
+{
+	await ParseCsvFileAndDisplayData(path);
+});
 app.AddCommand(async () =>
 {
 	var path = Console.ReadLine();
 
 	if (path != null)
 	{
-		var parsedData = await CsvLineParser.ParseCsvFile(path, new ConsoleWarningsDisplayer());
-		
-		var biggestSum = parsedData.GetBiggestLineSumPair().Key;
-		var lineNumberOfTheBiggestSum = parsedData.GetBiggestLineSumPair().Value.LineNumber;
-		var unprocessedLines = parsedData.GetUnprocessedLines();
-		
-		MessageDisplayer.DisplayBiggestSumAndLine(biggestSum, lineNumberOfTheBiggestSum);
-		await MessageDisplayer.DisplayLines(unprocessedLines);
+		await ParseCsvFileAndDisplayData(path);
 	}
 });
 
