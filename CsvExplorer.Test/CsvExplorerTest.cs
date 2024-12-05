@@ -11,13 +11,6 @@ namespace CsvExplorer.Test;
 
 public class TextHandlerTest
 {
-	private static readonly List<string> _nonNumericElements = new()
-	{
-		"1", "2", "c", "d"
-	};
-	
-	private static readonly CsvLine _nonNumericCsvLine = new(_nonNumericElements.ToAsyncEnumerable(),0);
-	
 	[Theory]
 	[DisplayName("Checks for correct max sum value")]
 	[InlineData(new[] {"1", "2", "9", "50"},
@@ -49,20 +42,31 @@ public class TextHandlerTest
 		Assert.Equal(maxSumExpected, sumInLineCalculator.BiggestSumInLines);
 	}
 	
-	[Fact]
+	[Theory]
 	[DisplayName("Checks for correct unprocessed lines handling")]
-	public async Task UnprocessedLineHandling()
+	[InlineData(new[] {"1", "2", "9", "50"},
+		new[] {"1", "test", "???", "a"})]
+	public async Task UnprocessedLineHandling(
+		string[] processedElements,
+		string[] unprocessedElements)
 	{
 		//Arrange
 		IWarningsDisplayer displayer = Substitute.For<IWarningsDisplayer>();
 		CsvUnprocessedLineHandler unprocessedLineHandler = new(displayer);
-		
-		//Act
-		unprocessedLineHandler.SetCurrentLine(_nonNumericCsvLine);
-		await unprocessedLineHandler.HandleLine();
-		
+		CsvLine unprocessedLine = new(unprocessedElements.ToAsyncEnumerable(), 0);
+		CsvLine processedLine = new(processedElements.ToAsyncEnumerable(), 0);
+		CsvLine[] lines = 
+		{
+			unprocessedLine,
+			processedLine
+		};
+		foreach (CsvLine line in lines)
+		{
+			unprocessedLineHandler.SetCurrentLine(line);
+			await unprocessedLineHandler.HandleLine();
+		}
 		//Assert
-		Assert.Contains(_nonNumericCsvLine, unprocessedLineHandler.UnprocessedCsvLines.ToBlockingEnumerable());
+		Assert.Contains(unprocessedLine, unprocessedLineHandler.UnprocessedCsvLines.ToBlockingEnumerable());
 	}
 	
 }
