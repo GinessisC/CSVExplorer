@@ -2,10 +2,6 @@
 using CSVConsoleExplorer;
 using CSVConsoleExplorer.TextHandling;
 
-var builder = CoconaApp.CreateBuilder();
-
-var app = builder.Build();
-
 static async Task ParseCsvFileAndDisplayData(string csvFilePath)
 {
 	var parsedData = await CsvLineParser.ParseCsvFile(csvFilePath, new ConsoleWarningsDisplayer());
@@ -17,6 +13,11 @@ static async Task ParseCsvFileAndDisplayData(string csvFilePath)
 	MessageDisplayer.DisplayBiggestSumAndLine(biggestSum, lineNumberOfTheBiggestSum);
 	await MessageDisplayer.DisplayLines(unprocessedLines);	
 }
+var builder = CoconaApp.CreateBuilder();
+
+var app = builder.Build();
+
+
 app.AddCommand(async (string path) =>
 {
 	await ParseCsvFileAndDisplayData(path);
