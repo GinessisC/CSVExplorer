@@ -1,15 +1,15 @@
-using CSVConsoleExplorer.Handlers;
+using CSVConsoleExplorer.Interfaces;
 using CSVConsoleExplorer.TextHandling.Components;
 
 namespace CSVConsoleExplorer;
 
 public class ParsedDataFromCsvFile
 {
-	private readonly CsvUnprocessedLineHandler? _unprocessedLineHandler;
-	private readonly SumInLineCalculator? _lineWithTheBiggestSum;
+	private readonly IUnprocessedLineHandler _unprocessedLineHandler;
+	private readonly ISumInLineCalculator _lineWithTheBiggestSum;
 
-	public ParsedDataFromCsvFile(SumInLineCalculator? lineWithTheBiggestSum,
-		CsvUnprocessedLineHandler? unprocessedLineHandler)
+	public ParsedDataFromCsvFile(ISumInLineCalculator lineWithTheBiggestSum,
+		IUnprocessedLineHandler unprocessedLineHandler)
 	{
 		_lineWithTheBiggestSum = lineWithTheBiggestSum;
 		_unprocessedLineHandler = unprocessedLineHandler;
@@ -17,22 +17,10 @@ public class ParsedDataFromCsvFile
 	
 	public IAsyncEnumerable<CsvLine> GetUnprocessedLines()
 	{
-		if (_unprocessedLineHandler == null)
-		{
-			throw new ArgumentException("Unprocessed lines are not identified yet");
-		}
-		return _unprocessedLineHandler.UnprocessedCsvLines!;
+		return _unprocessedLineHandler.GetUnprocessedCsvLines();
 	}
-	public KeyValuePair<long, CsvLine> GetBiggestLineSumPair()
+	public CsvLine GetLineWithBiggestSum()
 	{
-		if (_lineWithTheBiggestSum == null)
-		{
-			throw new ArgumentException("Line with the biggest sum is not identified yet");
-		}
-		var sum = _lineWithTheBiggestSum.BiggestSumInLines;
-		var line = _lineWithTheBiggestSum.LineWithTheBiggestSum;
-		var biggestLineSumPair = new KeyValuePair<long, CsvLine>(sum, line);
-		
-		return biggestLineSumPair;
+		return _lineWithTheBiggestSum.GetLineWithTheBiggestSum();
 	}	
 }

@@ -39,6 +39,8 @@
       <Compile Remove="Interfaces\IInterfaceProvider.cs" />
       <Compile Remove="FileSize.cs" />
       <Compile Remove="ConsoleInterfaceProviders\**" />
+      <Compile Remove="ConsoleWarningsDisplay.cs" />
+      <Compile Remove="Interfaces\IWarningsDisplay.cs" />
     </ItemGroup>
 
     <ItemGroup>

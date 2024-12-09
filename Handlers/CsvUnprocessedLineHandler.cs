@@ -3,29 +3,31 @@ using CSVConsoleExplorer.TextHandling.Components;
 using CSVConsoleExplorer.TextHandling.Extensions;
 
 namespace CSVConsoleExplorer.Handlers;
-public class CsvUnprocessedLineHandler : LineHandlerBase
+public class CsvUnprocessedLineHandler : LineHandlerBase, IUnprocessedLineHandler
 {
-	public CsvUnprocessedLineHandler(IWarningsDisplayer warningsDisplayer) : base(warningsDisplayer)
+	private IAsyncEnumerable<CsvLine> _unprocessedCsvLines = GetEmptyEnumerable();
+	private CsvLine? _currentCsvLine;
+
+	public override void SetCurrentLine(CsvLine currentLine)
 	{
+		_currentCsvLine = currentLine;
 	}
 
-	public IAsyncEnumerable<CsvLine?> UnprocessedCsvLines { get; private set; } = GetEmptyEnumerable();
-	private CsvLine? CurrentCsvLine { get; set; }
-
-	public void SetCurrentLine(CsvLine currentLine)
+	public IAsyncEnumerable<CsvLine> GetUnprocessedCsvLines()
 	{
-		CurrentCsvLine = currentLine;
+		return _unprocessedCsvLines;
 	}
+
 	protected override bool CanHandle()
 	{
-		return CurrentCsvLine != null && !CurrentCsvLine.IsNumerical();
+		return _currentCsvLine != null && !_currentCsvLine.IsNumerical();
 	}
 	
 	protected override async Task Handle()
 	{
 		Task appendUnprocessedLine = Task.Run(() =>
 		{
-			UnprocessedCsvLines = UnprocessedCsvLines.Append(CurrentCsvLine);
+			_unprocessedCsvLines = _unprocessedCsvLines.Append(_currentCsvLine);
 		});
 		await appendUnprocessedLine;
 	}

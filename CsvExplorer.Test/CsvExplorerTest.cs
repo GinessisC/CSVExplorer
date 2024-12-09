@@ -21,15 +21,13 @@ public class TextHandlerTest
 		long maxSumExpected)
 	{
 		//Arrange
-		IWarningsDisplayer displayer = Substitute.For<IWarningsDisplayer>();
-		
 		CsvLine[] actualLines =
 		[
 			new(incorrectLine.ToAsyncEnumerable(), 0),
 			new(correctLine.ToAsyncEnumerable(), 1)
 		];
 		
-		SumInLineCalculator sumInLineCalculator = new(displayer);
+		SumInLineCalculator sumInLineCalculator = new();
 		
 		//Act
 		foreach (CsvLine line in actualLines)
@@ -39,7 +37,7 @@ public class TextHandlerTest
 		}
 		
 		//Assert
-		Assert.Equal(maxSumExpected, sumInLineCalculator.BiggestSumInLines);
+		Assert.Equal(maxSumExpected, sumInLineCalculator.GetBiggestSumInLines());
 	}
 	
 	[Theory]
@@ -51,22 +49,24 @@ public class TextHandlerTest
 		string[] unprocessedElements)
 	{
 		//Arrange
-		IWarningsDisplayer displayer = Substitute.For<IWarningsDisplayer>();
-		CsvUnprocessedLineHandler unprocessedLineHandler = new(displayer);
+		CsvUnprocessedLineHandler unprocessedLineHandler = new();
 		CsvLine unprocessedLine = new(unprocessedElements.ToAsyncEnumerable(), 0);
 		CsvLine processedLine = new(processedElements.ToAsyncEnumerable(), 0);
+		
 		CsvLine[] lines = 
 		{
 			unprocessedLine,
 			processedLine
 		};
+		//Act
 		foreach (CsvLine line in lines)
 		{
 			unprocessedLineHandler.SetCurrentLine(line);
 			await unprocessedLineHandler.HandleLine();
 		}
 		//Assert
-		Assert.Contains(unprocessedLine, unprocessedLineHandler.UnprocessedCsvLines.ToBlockingEnumerable());
+		Assert.Contains(unprocessedLine, unprocessedLineHandler.GetUnprocessedCsvLines().ToBlockingEnumerable());
 	}
+	
 	
 }

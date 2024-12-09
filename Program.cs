@@ -1,35 +1,36 @@
 ﻿using Cocona;
 using CSVConsoleExplorer;
+using CSVConsoleExplorer.Handlers;
+using CSVConsoleExplorer.Interfaces;
 using CSVConsoleExplorer.TextHandling;
+using Microsoft.Extensions.DependencyInjection;
 
-static async Task ParseCsvFileAndDisplayData(string csvFilePath)
-{
-	var parsedData = await CsvLineParser.ParseCsvFile(csvFilePath, new ConsoleWarningsDisplayer());
-		
-	var biggestSum = parsedData.GetBiggestLineSumPair().Key;
-	var lineNumberOfTheBiggestSum = parsedData.GetBiggestLineSumPair().Value.LineNumber;
-	var unprocessedLines = parsedData.GetUnprocessedLines();
-		
-	MessageDisplayer.DisplayBiggestSumAndLine(biggestSum, lineNumberOfTheBiggestSum);
-	await MessageDisplayer.DisplayLines(unprocessedLines);	
-}
 var builder = CoconaApp.CreateBuilder();
+builder.Services.AddSingleton<ISumInLineCalculator, SumInLineCalculator>();
+builder.Services.AddSingleton<IUnprocessedLineHandler, CsvUnprocessedLineHandler>();
+
+builder.Services.AddSingleton<CsvLineParser>(provider => new CsvLineParser(provider.GetService<ISumInLineCalculator>(),
+	provider.GetService<IUnprocessedLineHandler>()));
+
 
 var app = builder.Build();
-
-
-app.AddCommand(async (string path) =>
+app.AddCommand("processfile",async (CsvLineParser parser, string path) =>
 {
-	await ParseCsvFileAndDisplayData(path);
+	await MessageDisplay.ParseCsvFileAndDisplayData(parser, path);
 });
-app.AddCommand(async () =>
+
+app.AddCommand(async (CsvLineParser parser) =>
 {
+	Console.WriteLine("Enter path to CSV file: ");
 	var path = Console.ReadLine();
 
-	if (path != null)
+	if (!string.IsNullOrWhiteSpace(path))
 	{
-		await ParseCsvFileAndDisplayData(path);
+		await MessageDisplay.ParseCsvFileAndDisplayData(parser, path);
 	}
 });
 
 app.Run();
+Console.WriteLine("Press Enter to exit...");
+Console.ReadLine();
+

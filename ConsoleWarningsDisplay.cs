@@ -2,7 +2,7 @@ using CSVConsoleExplorer.Interfaces;
 
 namespace CSVConsoleExplorer;
 
-public class ConsoleWarningsDisplayer : IWarningsDisplayer
+public class ConsoleWarningsDisplay : IWarningsDisplay
 {
 	public void DisplayWarning(string warning)
 	{

@@ -5,40 +5,47 @@ using CSVConsoleExplorer.TextHandling.Extensions;
 
 namespace CSVConsoleExplorer.Handlers;
 
-public class SumInLineCalculator : LineHandlerBase
+public class SumInLineCalculator : LineHandlerBase, ISumInLineCalculator
 {
-	public SumInLineCalculator(IWarningsDisplayer warningsDisplayer) : base(warningsDisplayer)
+	
+	private CsvLine _currentCsvLine = new(default, 0);
+	private long _biggestSumInLines;
+	private CsvLine _lineWithTheBiggestSum = new(default, 0);
+	
+	public override void SetCurrentLine(CsvLine currentCsvLine)
 	{
-		
+		_currentCsvLine = currentCsvLine;
 	}
 
-	private CsvLine CurrentCsvLine { get; set; } = new(default, 0);
-	public long BiggestSumInLines { get; private set; }
-	public CsvLine LineWithTheBiggestSum {get; private set;} = new(default, 0);
-	
-	public void SetCurrentLine(CsvLine currentCsvLine)
+	public CsvLine GetLineWithTheBiggestSum()
 	{
-		CurrentCsvLine = currentCsvLine;
+		return _lineWithTheBiggestSum;
 	}
+
+	public long GetBiggestSumInLines()
+	{
+		return _biggestSumInLines;
+	}
+
 	protected override bool CanHandle()
 	{
-		return CurrentCsvLine.IsNumerical();
+		return _currentCsvLine.IsNumerical();
 	}
 	
 	protected override async Task Handle()
 	{
 		Task sumCalculationTask = Task.Run(() =>
 		{
-			if (CurrentCsvLine.Elements != null)
+			if (_currentCsvLine.Elements != null)
 			{
-				var numbers = CurrentCsvLine.Elements.ToBlockingEnumerable().Select(long.Parse);
+				var numbers = _currentCsvLine.Elements.ToBlockingEnumerable().Select(long.Parse);
 				var currentSum = numbers.Sum();
 		
-				if (BiggestSumInLines < currentSum)
+				if (_biggestSumInLines < currentSum)
 				{
-					BiggestSumInLines = currentSum;
+					_biggestSumInLines = currentSum;
 
-					LineWithTheBiggestSum = CurrentCsvLine;
+					_lineWithTheBiggestSum = _currentCsvLine;
 				}
 			}
 		});

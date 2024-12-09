@@ -1,6 +1,6 @@
 namespace CSVConsoleExplorer.Interfaces;
 
-public interface IWarningsDisplayer
+public interface IWarningsDisplay
 {
 	void DisplayWarning(string warning);
 }

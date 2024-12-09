@@ -1,16 +1,14 @@
 using CSVConsoleExplorer.Interfaces;
+using CSVConsoleExplorer.TextHandling.Components;
 
 namespace CSVConsoleExplorer.Handlers;
 
 public abstract class LineHandlerBase : ILineHandler
 {
-	protected LineHandlerBase(IWarningsDisplayer warningsDisplayer)
-	{
-		WarningsDisplayer = warningsDisplayer;
-	}
+	
 
 	private ILineHandler? LineHandler { get; set; }
-	private IWarningsDisplayer WarningsDisplayer { get; set; }
+	//private IWarningsDisplay WarningsDisplay { get; set; }
 	public void SetHandler(ILineHandler? handler)
 	{
 		LineHandler = handler;
@@ -28,10 +26,11 @@ public abstract class LineHandlerBase : ILineHandler
 		}
 		else
 		{
-			WarningsDisplayer.DisplayWarning("Can't handle line");
+			throw new NullReferenceException();
 		}
 	}
 
+	public abstract void SetCurrentLine(CsvLine currentCsvLine);
 	protected abstract bool CanHandle();
 	protected abstract Task Handle();
 }
