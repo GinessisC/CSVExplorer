@@ -5,6 +5,5 @@ namespace CSVConsoleExplorer.Interfaces;
 public interface ILineHandler
 {
 	void SetHandler(ILineHandler? handler);
-	Task HandleLine();
-	void SetCurrentLine(CsvLine currentCsvLine);
+	Task HandleLine(CsvLine line);
 }

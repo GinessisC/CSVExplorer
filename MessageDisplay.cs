@@ -29,9 +29,9 @@ public static class MessageDisplay
 			}
 		}
 	}
-	public static async Task ParseCsvFileAndDisplayData(CsvLineParser parser, string csvFilePath)
+	public static async Task ParseCsvFileAndDisplayData(CsvLineParser parser, string filePath)
 	{
-		ParsedDataFromCsvFile parsedData = await parser.ParseCsvFile(csvFilePath);
+		ParsedDataFromCsvFile parsedData = await parser.ParseCsvFile(filePath);
 	
 		CsvLine lineWithBiggestSum = parsedData.GetLineWithBiggestSum();
 		long lineNumberOfTheBiggestSum = lineWithBiggestSum.LineNumber;

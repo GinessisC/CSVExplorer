@@ -5,24 +5,21 @@ namespace CSVConsoleExplorer.Handlers;
 
 public abstract class LineHandlerBase : ILineHandler
 {
-	
-
 	private ILineHandler? LineHandler { get; set; }
-	//private IWarningsDisplay WarningsDisplay { get; set; }
 	public void SetHandler(ILineHandler? handler)
 	{
 		LineHandler = handler;
 	}
-	public async Task HandleLine()
+	public async Task HandleLine(CsvLine line)
 	{
-		if (CanHandle())
+		if (CanHandle(line))
 		{
-			await Handle();
+			await Handle(line);
 		}
 
 		else if (LineHandler != null)
 		{
-			await LineHandler.HandleLine();
+			await LineHandler.HandleLine(line);
 		}
 		else
 		{
@@ -30,7 +27,6 @@ public abstract class LineHandlerBase : ILineHandler
 		}
 	}
 
-	public abstract void SetCurrentLine(CsvLine currentCsvLine);
-	protected abstract bool CanHandle();
-	protected abstract Task Handle();
+	protected abstract bool CanHandle(CsvLine line);
+	protected abstract Task Handle(CsvLine line);
 }

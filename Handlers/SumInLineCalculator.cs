@@ -7,16 +7,9 @@ namespace CSVConsoleExplorer.Handlers;
 
 public class SumInLineCalculator : LineHandlerBase, ISumInLineCalculator
 {
-	
-	private CsvLine _currentCsvLine = new(default, 0);
 	private long _biggestSumInLines;
 	private CsvLine _lineWithTheBiggestSum = new(default, 0);
 	
-	public override void SetCurrentLine(CsvLine currentCsvLine)
-	{
-		_currentCsvLine = currentCsvLine;
-	}
-
 	public CsvLine GetLineWithTheBiggestSum()
 	{
 		return _lineWithTheBiggestSum;
@@ -27,25 +20,24 @@ public class SumInLineCalculator : LineHandlerBase, ISumInLineCalculator
 		return _biggestSumInLines;
 	}
 
-	protected override bool CanHandle()
+	protected override bool CanHandle(CsvLine line)
 	{
-		return _currentCsvLine.IsNumerical();
+		return line.IsNumerical();
 	}
-	
-	protected override async Task Handle()
+	protected override async Task Handle(CsvLine line)
 	{
 		Task sumCalculationTask = Task.Run(() =>
 		{
-			if (_currentCsvLine.Elements != null)
+			if (line.Elements != null)
 			{
-				var numbers = _currentCsvLine.Elements.ToBlockingEnumerable().Select(long.Parse);
+				var numbers = line.Elements.ToBlockingEnumerable().Select(long.Parse);
 				var currentSum = numbers.Sum();
 		
 				if (_biggestSumInLines < currentSum)
 				{
 					_biggestSumInLines = currentSum;
 
-					_lineWithTheBiggestSum = _currentCsvLine;
+					_lineWithTheBiggestSum = line;
 				}
 			}
 		});

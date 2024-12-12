@@ -41,6 +41,7 @@
       <Compile Remove="ConsoleInterfaceProviders\**" />
       <Compile Remove="ConsoleWarningsDisplay.cs" />
       <Compile Remove="Interfaces\IWarningsDisplay.cs" />
+      <Compile Include="TextHandling\ParsedDataFromCsvFile.cs" />
     </ItemGroup>
 
     <ItemGroup>

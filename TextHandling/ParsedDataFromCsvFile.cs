@@ -1,9 +1,9 @@
 using CSVConsoleExplorer.Interfaces;
 using CSVConsoleExplorer.TextHandling.Components;
 
-namespace CSVConsoleExplorer;
+namespace CSVConsoleExplorer.TextHandling;
 
-public class ParsedDataFromCsvFile
+public record ParsedDataFromCsvFile
 {
 	private readonly IUnprocessedLineHandler _unprocessedLineHandler;
 	private readonly ISumInLineCalculator _lineWithTheBiggestSum;
@@ -22,5 +22,5 @@ public class ParsedDataFromCsvFile
 	public CsvLine GetLineWithBiggestSum()
 	{
 		return _lineWithTheBiggestSum.GetLineWithTheBiggestSum();
-	}	
+	}
 }
