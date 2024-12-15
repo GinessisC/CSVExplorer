@@ -1,8 +1,8 @@
 ﻿using Cocona;
-using CSVConsoleExplorer;
-using CSVConsoleExplorer.Handlers;
-using CSVConsoleExplorer.Interfaces;
-using CSVConsoleExplorer.TextHandling;
+using CsvConsoleExplorer;
+using CsvConsoleExplorer.Handlers;
+using CsvConsoleExplorer.Interfaces;
+using CsvConsoleExplorer.TextHandling;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = CoconaApp.CreateBuilder();

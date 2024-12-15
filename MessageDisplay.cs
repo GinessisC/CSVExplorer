@@ -1,7 +1,7 @@
-using CSVConsoleExplorer.TextHandling;
-using CSVConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.TextHandling;
+using CsvConsoleExplorer.TextHandling.Components;
 
-namespace CSVConsoleExplorer;
+namespace CsvConsoleExplorer;
 public class MessageDisplay
 {
 	private readonly CsvLineParser _parser;

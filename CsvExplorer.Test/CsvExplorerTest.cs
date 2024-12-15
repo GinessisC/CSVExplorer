@@ -1,9 +1,9 @@
 using System.Collections;
 using System.ComponentModel;
-using CSVConsoleExplorer.Handlers;
-using CSVConsoleExplorer.Interfaces;
-using CSVConsoleExplorer.TextHandling;
-using CSVConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.Handlers;
+using CsvConsoleExplorer.Interfaces;
+using CsvConsoleExplorer.TextHandling;
+using CsvConsoleExplorer.TextHandling.Components;
 using NSubstitute;
 using Xunit;
 

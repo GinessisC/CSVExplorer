@@ -1,6 +1,6 @@
-using CSVConsoleExplorer.Interfaces;
+using CsvConsoleExplorer.Interfaces;
 
-namespace CSVConsoleExplorer;
+namespace CsvConsoleExplorer;
 
 public class LinesFromFileReceiver : ILinesReceiver
 {

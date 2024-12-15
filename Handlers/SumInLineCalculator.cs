@@ -1,9 +1,9 @@
-using CSVConsoleExplorer.Interfaces;
 using System.Numerics;
-using CSVConsoleExplorer.TextHandling.Components;
-using CSVConsoleExplorer.TextHandling.Extensions;
+using CsvConsoleExplorer.Interfaces;
+using CsvConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.TextHandling.Extensions;
 
-namespace CSVConsoleExplorer.Handlers;
+namespace CsvConsoleExplorer.Handlers;
 
 public class SumInLineCalculator : LineHandlerBase, ISumInLineCalculator
 {

@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace CSVConsoleExplorer.TextHandling.Components;
+namespace CsvConsoleExplorer.TextHandling.Components;
 
 public class CsvLine
 {

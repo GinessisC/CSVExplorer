@@ -1,6 +1,6 @@
-using CSVConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.TextHandling.Components;
 
-namespace CSVConsoleExplorer.Interfaces;
+namespace CsvConsoleExplorer.Interfaces;
 
 public interface ILineHandler
 {

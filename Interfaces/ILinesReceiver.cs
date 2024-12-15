@@ -1,4 +1,4 @@
-namespace CSVConsoleExplorer.Interfaces;
+namespace CsvConsoleExplorer.Interfaces;
 
 public interface ILinesReceiver
 {

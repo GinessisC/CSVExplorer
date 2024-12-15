@@ -1,8 +1,8 @@
-using CSVConsoleExplorer.Interfaces;
-using CSVConsoleExplorer.TextHandling.Components;
-using CSVConsoleExplorer.TextHandling.Extensions;
+using CsvConsoleExplorer.Interfaces;
+using CsvConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.TextHandling.Extensions;
 
-namespace CSVConsoleExplorer.Handlers;
+namespace CsvConsoleExplorer.Handlers;
 public class CsvUnprocessedLineHandler : LineHandlerBase, IUnprocessedLineHandler
 {
 	private IAsyncEnumerable<CsvLine> _unprocessedCsvLines = GetEmptyEnumerable();

@@ -1,7 +1,7 @@
-using CSVConsoleExplorer.Handlers;
-using CSVConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.Handlers;
+using CsvConsoleExplorer.TextHandling.Components;
 
-namespace CSVConsoleExplorer.Interfaces;
+namespace CsvConsoleExplorer.Interfaces;
 
 public interface ISumInLineCalculator : ILineHandler
 {
