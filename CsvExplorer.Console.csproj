@@ -23,9 +23,7 @@
       <Compile Remove="Parser.cs" />
       <Compile Include="TextHandling\Components\CsvLine.cs" />
       <Compile Include="TextHandling\CsvLineParser.cs" />
-      <Compile Include="TextHandling\Extensions\AsyncEnumerableExtensions.cs" />
       <Compile Include="TextHandling\Extensions\CsvLineExtension.cs" />
-      <Compile Include="TextHandling\Extensions\EnumerableExtension.cs" />
       <Compile Include="TextHandling\Interfaces\ICsvLineHandler.cs" />
       <Compile Include="TextHandling\Interfaces\IMessagesDisplayer.cs" />
       <Compile Include="TextHandling\Main\CsvLineLinesHandlerBase.cs" />
@@ -70,6 +68,7 @@
 
     <ItemGroup>
       <PackageReference Include="Cocona" Version="2.2.0" />
+      <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     </ItemGroup>
 
 </Project>

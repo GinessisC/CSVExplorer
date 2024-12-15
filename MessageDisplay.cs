@@ -2,14 +2,21 @@ using CSVConsoleExplorer.TextHandling;
 using CSVConsoleExplorer.TextHandling.Components;
 
 namespace CSVConsoleExplorer;
-public static class MessageDisplay
+public class MessageDisplay
 {
-	private static void DisplayBiggestSumAndLine(long biggestSum, long lineNumber) 
+	private CsvLineParser _parser;
+
+	public MessageDisplay(CsvLineParser parser)
+	{
+		_parser = parser;
+	}
+
+	private void DisplayBiggestSumAndLine(long biggestSum, long lineNumber) 
 	{
 		Console.WriteLine($"Biggest sum: {biggestSum} on the line {lineNumber}");
 	}
 	
-	private static async Task DisplayLines(IAsyncEnumerable<CsvLine>? lines)
+	private async Task DisplayLines(IAsyncEnumerable<CsvLine>? lines)
 	{
 		if (lines is not null)
 		{
@@ -29,9 +36,9 @@ public static class MessageDisplay
 			}
 		}
 	}
-	public static async Task ParseCsvFileAndDisplayData(CsvLineParser parser, string filePath)
+	public async Task ParseCsvFileAndDisplayData(string filePath)
 	{
-		ParsedDataFromCsvFile parsedData = await parser.ParseCsvFile(filePath);
+		ParsedDataFromCsvFile parsedData = await _parser.ParseCsvFile(filePath);
 	
 		CsvLine lineWithBiggestSum = parsedData.GetLineWithBiggestSum();
 		long lineNumberOfTheBiggestSum = lineWithBiggestSum.LineNumber;

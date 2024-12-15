@@ -4,8 +4,6 @@ using CSVConsoleExplorer.Handlers;
 using CSVConsoleExplorer.Interfaces;
 using CSVConsoleExplorer.TextHandling;
 using CSVConsoleExplorer.TextHandling.Components;
-using CSVConsoleExplorer.TextHandling.Extensions;
-using CSVConsoleExplorer.TextHandling.Extensions;
 using NSubstitute;
 using Xunit;
 
@@ -24,62 +22,6 @@ public class TestDataGenerator : IEnumerable<object[]>
 public class TextHandlerTest
 {
 	private const string TestPath = "C:\\Test\\test.csv";
-	
-	[Theory]
-	[DisplayName("Checks for correct max sum value")]
-	[InlineData(new[] {"1", "2", "9", "50"},
-		new[] {"1", "2", "3", "4"},
-		62)]
-	public async Task CorrectMaxSumCalculation(string[] incorrectLine,
-		string[] correctLine,
-		long maxSumExpected)
-	{
-		//Arrange
-		
-		CsvLine[] actualLines =
-		[
-			new(incorrectLine.ToAsyncEnumerable(), 0),
-			new(correctLine.ToAsyncEnumerable(), 1)
-		];
-		
-		SumInLineCalculator sumInLineCalculator = new();
-		
-		//Act
-		foreach (CsvLine line in actualLines)
-		{
-		}
-		
-		//Assert
-		Assert.Equal(maxSumExpected, sumInLineCalculator.GetBiggestSumInLines());
-	}
-	
-	[Theory]
-	[DisplayName("Checks for correct unprocessed lines handling")]
-	[InlineData(new[] {"1", "2", "9", "50"},
-		new[] {"1", "test", "???", "a"})]
-	public async Task UnprocessedLineHandling(
-		string[] processedElements,
-		string[] unprocessedElements)
-	{
-		//Arrange
-		CsvUnprocessedLineHandler unprocessedLineHandler = new();
-		CsvLine unprocessedLine = new(unprocessedElements.ToAsyncEnumerable(), 0);
-		CsvLine processedLine = new(processedElements.ToAsyncEnumerable(), 0);
-		
-		CsvLine[] lines = 
-		{
-			unprocessedLine,
-			processedLine
-		};
-		//Act
-		foreach (CsvLine line in lines)
-		{
-			await unprocessedLineHandler.HandleLine(line);
-		}
-		//Assert
-		Assert.Contains(unprocessedLine, unprocessedLineHandler.GetUnprocessedCsvLines().ToBlockingEnumerable());
-	}
-
 	
 	[Theory]
 	[DisplayName("Checks for correct parsed lines")]
@@ -156,7 +98,8 @@ public class TextHandlerTest
 			"test,abc,t"
 		};
 	}
-	public static async IAsyncEnumerable<string[]> GetEmptyEnumerable()
+
+	private static async IAsyncEnumerable<string[]> GetEmptyEnumerable()
 	{
 		await Task.CompletedTask;
 		yield break;

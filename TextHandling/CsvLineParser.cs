@@ -1,7 +1,6 @@
 using CSVConsoleExplorer.Handlers;
 using CSVConsoleExplorer.Interfaces;
 using CSVConsoleExplorer.TextHandling.Components;
-using CSVConsoleExplorer.TextHandling.Extensions;
 
 namespace CSVConsoleExplorer.TextHandling;
 public class CsvLineParser
@@ -32,23 +31,27 @@ public class CsvLineParser
 	
 	public async Task<ParsedDataFromCsvFile> ParseCsvFile(string filePath)
 	{
-		var i = 0;
 		_unprocessedLineHandler.SetHandler(_sumInLineCalculator);
 		
+		var i = 0;
 		await foreach (var line in _linesReceiver.ReadLines(filePath))
 		{
 			i++;
-			
-			var elements = line.Split(_separator).ToList();
-			var filteredElements = FilterEmptyElements(elements);
-			IAsyncEnumerable<string> elementsAsyncEnumerable = filteredElements.ToAsyncEnumerable();
-			var currentLine = new CsvLine(elementsAsyncEnumerable, i);
-			
+
+			var currentLine = ConvertToCsvLine(line, i);
 			await _unprocessedLineHandler.HandleLine(currentLine);
 		} 
 		return new ParsedDataFromCsvFile(_sumInLineCalculator, _unprocessedLineHandler);
 	}
-	private static IEnumerable<string> FilterEmptyElements(List<string> elements)
+
+	private CsvLine ConvertToCsvLine(string line, int lineNumber)
+	{
+		var elements = line.Split(_separator).ToList();
+		var filteredElements = FilterEmptyElements(elements);
+		IAsyncEnumerable<string> elementsAsyncEnumerable = filteredElements.ToAsyncEnumerable();
+		return new CsvLine(elementsAsyncEnumerable, lineNumber);
+	}
+	private IEnumerable<string> FilterEmptyElements(List<string> elements)
 	{
 		if (elements.All(string.IsNullOrEmpty))
 		{

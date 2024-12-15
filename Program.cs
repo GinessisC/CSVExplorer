@@ -10,30 +10,30 @@ var builder = CoconaApp.CreateBuilder();
 builder.Services.AddSingleton<ISumInLineCalculator, SumInLineCalculator>();
 builder.Services.AddSingleton<IUnprocessedLineHandler, CsvUnprocessedLineHandler>();
 builder.Services.AddSingleton<ILinesReceiver, LinesFromFileReceiver>();
+builder.Services.AddSingleton<CsvLineParser>();
 
-builder.Services.AddSingleton<CsvLineParser>(provider => new CsvLineParser(provider.GetService<ISumInLineCalculator>(),
-	provider.GetService<IUnprocessedLineHandler>(), provider.GetService<ILinesReceiver>()));
+builder.Services.AddSingleton<MessageDisplay>();
 
 
 var app = builder.Build();
 app.AddCommand("processfile",async (string filePath,
-	CsvLineParser parser) =>
+	MessageDisplay display) =>
 {
-	await MessageDisplay.ParseCsvFileAndDisplayData(parser, filePath);
+	await display.ParseCsvFileAndDisplayData(filePath);
 });
 
-app.AddCommand(async (CsvLineParser parser) =>
+app.AddCommand(async (MessageDisplay display) =>
 {
 	Console.WriteLine("Enter path to CSV file: ");
 	var path = Console.ReadLine();
 	
 	if (!string.IsNullOrWhiteSpace(path))
 	{
-		await MessageDisplay.ParseCsvFileAndDisplayData(parser, path);
+		await display.ParseCsvFileAndDisplayData(path);
 	}
 });
 
-app.Run();
+await app.RunAsync();
 Console.WriteLine("Press Enter to exit...");
 Console.ReadLine();
 
