@@ -4,7 +4,7 @@ using CSVConsoleExplorer.TextHandling.Components;
 namespace CSVConsoleExplorer;
 public class MessageDisplay
 {
-	private CsvLineParser _parser;
+	private readonly CsvLineParser _parser;
 
 	public MessageDisplay(CsvLineParser parser)
 	{
