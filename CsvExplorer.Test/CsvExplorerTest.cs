@@ -1,6 +1,9 @@
 using System.ComponentModel;
-using CsvHandling;
-using CsvHandling.Interfaces.Sorting;
+using CSVConsoleExplorer.Handlers;
+using CSVConsoleExplorer.Interfaces;
+using CSVConsoleExplorer.TextHandling;
+using CSVConsoleExplorer.TextHandling.Components;
+using CSVConsoleExplorer.TextHandling.Extensions;
 using NSubstitute;
 using Xunit;
 
@@ -8,27 +11,58 @@ namespace CsvExplorer.Test;
 
 public class TextHandlerTest
 {
-	private const int MaxSumExpected = 117;
-	private readonly List<List<int>> _linesOfNumbers = new()
+	private static readonly List<string> _nonNumericElements = new()
 	{
-		new List<int> {1, 2, 3, 4},
-		new List<int> {100, 4, 6, 7}
+		"1", "2", "c", "d"
 	};
 	
-	[Fact]
+	private static readonly CsvLine _nonNumericCsvLine = new(_nonNumericElements.ToAsyncEnumerable(),0);
+	
+	[Theory]
 	[DisplayName("Checks for correct max sum value")]
-	public void CorrectSumSelection()
+	[InlineData(new[] {"1", "2", "9", "50"},
+		new[] {"1", "2", "3", "4"},
+		62)]
+	public async Task CorrectMaxSumCalculation(string[] incorrectLine,
+		string[] correctLine,
+		long maxSumExpected)
 	{
 		//Arrange
-		IFileNumberSorter fileNumberSorter = Substitute.For<IFileNumberSorter>();
-		fileNumberSorter.GetNumbersOnly().Returns(_linesOfNumbers);
-		SumCounter lh = new(fileNumberSorter);
+		IWarningsDisplayer displayer = Substitute.For<IWarningsDisplayer>();
+		
+		CsvLine[] actualLines =
+		[
+			new(incorrectLine.ToAsyncEnumerable(), 0),
+			new(correctLine.ToAsyncEnumerable(), 1)
+		];
+		
+		SumInLineCalculator sumInLineCalculator = new(displayer);
+		
 		//Act
-
-		var maxSum = lh.GetMaxSumInLines();
+		foreach (CsvLine line in actualLines)
+		{
+			sumInLineCalculator.SetCurrentLine(line);
+			await sumInLineCalculator.HandleLine();
+		}
 		
 		//Assert
-		fileNumberSorter.Received(1).GetNumbersOnly();
-		Assert.Equal(MaxSumExpected, maxSum);
+		Assert.Equal(maxSumExpected, sumInLineCalculator.BiggestSumInLines);
 	}
+	
+	[Fact]
+	[DisplayName("Checks for correct unprocessed lines handling")]
+	public async Task UnprocessedLineHandling()
+	{
+		//Arrange
+		IWarningsDisplayer displayer = Substitute.For<IWarningsDisplayer>();
+		CsvUnprocessedLineHandler unprocessedLineHandler = new(displayer);
+		
+		//Act
+		unprocessedLineHandler.SetCurrentLine(_nonNumericCsvLine);
+		await unprocessedLineHandler.HandleLine();
+		
+		//Assert
+		Assert.Contains(_nonNumericCsvLine, unprocessedLineHandler.UnprocessedCsvLines.ToBlockingEnumerable());
+	}
+	
 }

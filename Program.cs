@@ -1,26 +1,28 @@
-﻿using CSVFileReaders;
-using CsvHandling;
+﻿using Cocona;
+using CSVConsoleExplorer;
+using CSVConsoleExplorer.TextHandling;
 
-namespace CSVConsoleExplorer;
+var builder = CoconaApp.CreateBuilder();
 
-class Program
+var app = builder.Build();
+
+//TODO: add command with parameters
+
+app.AddCommand(async () =>
 {
-	static async Task Main(string[] args)
-	{
-		string? path = Console.ReadLine();
+	var path = Console.ReadLine();
 
-		if (string.IsNullOrEmpty(path))
-		{
-			Console.WriteLine("Please specify a file path");
-			return;
-		}
+	if (path != null)
+	{
+		var parsedData = await CsvLineParser.ParseCsvFile(path, new ConsoleWarningsDisplayer());
 		
-		CsvFileReader reader = new(path);
-		var fileData = await reader.GetFileLinesAsync();
-		NumberSorter numberSorter = new(fileData);
-		SumCounter lh = new(numberSorter);
+		var biggestSum = parsedData.GetBiggestLineSumPair().Key;
+		var lineNumberOfTheBiggestSum = parsedData.GetBiggestLineSumPair().Value.LineNumber;
+		var unprocessedLines = parsedData.GetUnprocessedLines();
 		
-		int maxSum = lh.GetMaxSumInLines();
-		Console.WriteLine($"Line: {lh.MaxSumLine} \t Value: {maxSum}");
+		MessageDisplayer.DisplayBiggestSumAndLine(biggestSum, lineNumberOfTheBiggestSum);
+		await MessageDisplayer.DisplayLines(unprocessedLines);
 	}
-}
+});
+
+app.Run();

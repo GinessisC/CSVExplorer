@@ -18,8 +18,12 @@
 
 
     <ItemGroup>
-      <ProjectReference Include="..\CSVConsoleExplorer.csproj" />
-      <ProjectReference Include="..\TextHandling\TextHandling.csproj" />
+      <ProjectReference Include="..\CsvExplorer.Console.csproj" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Compile Remove="ConsoleNumberSorterTests.cs" />
     </ItemGroup>
 
 </Project>

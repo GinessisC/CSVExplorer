@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSVConsoleExplorer", "CSVConsoleExplorer.csproj", "{130D5C55-7103-44B4-A5E5-290D554A5099}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVFileReaders", "CSVFileReaders\CSVFileReaders.csproj", "{067A49D1-77CF-4AF3-AA73-12A4A5D8D47E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextHandling", "TextHandling\TextHandling.csproj", "{8E3B4D5C-8272-4F45-8503-7A0FFA340437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvExplorer.Console", "CsvExplorer.Console.csproj", "{130D5C55-7103-44B4-A5E5-290D554A5099}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvExplorer.Test", "CsvExplorer.Test\CsvExplorer.Test.csproj", "{9B2E19B7-085E-4ED3-B8FA-A59BA673B7C1}"
 EndProject
@@ -21,14 +17,6 @@ Global
 		{130D5C55-7103-44B4-A5E5-290D554A5099}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{130D5C55-7103-44B4-A5E5-290D554A5099}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{130D5C55-7103-44B4-A5E5-290D554A5099}.Release|Any CPU.Build.0 = Release|Any CPU
-		{067A49D1-77CF-4AF3-AA73-12A4A5D8D47E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{067A49D1-77CF-4AF3-AA73-12A4A5D8D47E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{067A49D1-77CF-4AF3-AA73-12A4A5D8D47E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{067A49D1-77CF-4AF3-AA73-12A4A5D8D47E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E3B4D5C-8272-4F45-8503-7A0FFA340437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E3B4D5C-8272-4F45-8503-7A0FFA340437}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E3B4D5C-8272-4F45-8503-7A0FFA340437}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E3B4D5C-8272-4F45-8503-7A0FFA340437}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B2E19B7-085E-4ED3-B8FA-A59BA673B7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B2E19B7-085E-4ED3-B8FA-A59BA673B7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B2E19B7-085E-4ED3-B8FA-A59BA673B7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
