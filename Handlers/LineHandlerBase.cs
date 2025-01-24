@@ -5,10 +5,10 @@ namespace CsvConsoleExplorer.Handlers;
 
 public abstract class LineHandlerBase : ILineHandler
 {
-	private ILineHandler? LineHandler { get; set; }
+	private ILineHandler? _lineHandler;
 	public void SetHandler(ILineHandler? handler)
 	{
-		LineHandler = handler;
+		_lineHandler = handler;
 	}
 	public async Task HandleLine(CsvLine line)
 	{
@@ -17,9 +17,9 @@ public abstract class LineHandlerBase : ILineHandler
 			await Handle(line);
 		}
 
-		else if (LineHandler != null)
+		else if (_lineHandler != null)
 		{
-			await LineHandler.HandleLine(line);
+			await _lineHandler.HandleLine(line);
 		}
 		else
 		{

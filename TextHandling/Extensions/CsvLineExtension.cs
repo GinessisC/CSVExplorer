@@ -5,15 +5,10 @@ public static class CsvLineExtension
 {
 	public static bool IsNumerical(this CsvLine line) 
 	{
-		if (line.Elements == null)
-		{
-			return false;
-		}
-		var filteredLine = line.Elements.ToBlockingEnumerable()
-			.Select(element => element)
-			.Where(element => element != string.Empty);
-
-		return filteredLine.All(IsNumber);
+		var elements = line.Elements;
+		var isElementsNumerical = elements.All(element => !string.IsNullOrEmpty(element) && IsNumber(element));
+		
+		return isElementsNumerical;
 	}
 	private static bool IsNumber(string element)
 	{

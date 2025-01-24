@@ -18,11 +18,10 @@ public class CsvUnprocessedLineHandler : LineHandlerBase, IUnprocessedLineHandle
 	
 	protected override async Task Handle(CsvLine line)
 	{
-		Task appendUnprocessedLine = Task.Run(() =>
+		await Task.Run(() =>
 		{
 			_unprocessedCsvLines = _unprocessedCsvLines.Append(line);
 		});
-		await appendUnprocessedLine;
 	}
 
 	private static async IAsyncEnumerable<CsvLine> GetEmptyEnumerable()

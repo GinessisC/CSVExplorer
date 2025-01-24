@@ -40,8 +40,8 @@ public class TextHandlerTest
 		//Act
 		
 		ParsedDataFromCsvFile parsedData = await parser.ParseCsvFile(TestPath);
-		var numbers = parsedData.GetLineWithBiggestSum().Elements.ToBlockingEnumerable()
-			.Select(x => int.Parse(x));
+		var numbers = parsedData.GetLineWithBiggestSum().Elements
+			.Select(int.Parse);
 		//Assert
 		Assert.Equal(11, numbers.Sum());
 	}
@@ -78,7 +78,7 @@ public class TextHandlerTest
 		{
 			foreach(CsvLine line in unprocessedLines)
 			{
-				result.Add(line.Elements.ToBlockingEnumerable().ToList().Contains(element));
+				result.Add(line.Elements.ToList().Contains(element));
 			}
 		}
 
