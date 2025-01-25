@@ -9,19 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a755a137-a798-463a-9f7a-39822dd4328a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Interfaces/ICsvLineParser.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Interfaces/IMessageDisplay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CsvExplorer.Console.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CsvExplorer.Console.csproj" afterDir="false" />
+    <list default="true" id="a755a137-a798-463a-9f7a-39822dd4328a" name="Changes" comment="program is now looped">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CsvExplorer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CsvExplorer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVExplorer.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/CSVExplorer.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CsvExplorer.Test/CsvExplorerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CsvExplorer.Test/CsvExplorerTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handlers/CsvUnprocessedLineHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/CsvUnprocessedLineHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handlers/LineHandlerBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/LineHandlerBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handlers/SumInLineCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/SumInLineCalculator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MessageDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MessageDisplay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TextHandling/Components/CsvLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TextHandling/Components/CsvLine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TextHandling/CsvLineParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TextHandling/CsvLineParser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TextHandling/Extensions/CsvLineExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TextHandling/Extensions/CsvLineExtension.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +181,7 @@
       <workItem from="1732577416999" duration="40109000" />
       <workItem from="1733063208533" duration="44204000" />
       <workItem from="1734544137716" duration="2000" />
-      <workItem from="1737583539944" duration="20252000" />
+      <workItem from="1737583539944" duration="25054000" />
     </task>
     <task id="LOCAL-00001" summary="csv explorer created">
       <option name="closed" value="true" />
@@ -328,7 +319,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733350662864</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="program is now looped">
+      <option name="closed" value="true" />
+      <created>1737750671085</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1737750671085</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -379,63 +378,12 @@
     <MESSAGE value="well done" />
     <MESSAGE value="tests added" />
     <MESSAGE value="deleted unnecessary files" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted unnecessary files" />
+    <MESSAGE value="program is now looped" />
+    <option name="LAST_COMMIT_MESSAGE" value="program is now looped" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Handlers/SumInLineCalculator.cs</url>
-          <line>18</line>
-          <properties documentPath="D:\Test\CSVExplorer\Handlers\SumInLineCalculator.cs" containingFunctionPresentation="Method 'CanHandle'">
-            <startOffsets>
-              <option value="504" />
-            </startOffsets>
-            <endOffsets>
-              <option value="505" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/TextHandling/CsvLineParser.cs</url>
-          <line>35</line>
-          <properties documentPath="D:\Test\CSVExplorer\TextHandling\CsvLineParser.cs" containingFunctionPresentation="Method 'ParseCsvFile'">
-            <startOffsets>
-              <option value="1164" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1226" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/TextHandling/CsvLineParser.cs</url>
-          <line>41</line>
-          <properties documentPath="D:\Test\CSVExplorer\TextHandling\CsvLineParser.cs" containingFunctionPresentation="Method 'ParseCsvFile'">
-            <startOffsets>
-              <option value="1352" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1432" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Handlers/SumInLineCalculator.cs</url>
-          <line>22</line>
-          <properties documentPath="D:\Test\CSVExplorer\Handlers\SumInLineCalculator.cs" containingFunctionPresentation="Method 'Handle'">
-            <startOffsets>
-              <option value="591" />
-            </startOffsets>
-            <endOffsets>
-              <option value="592" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Handlers/CsvUnprocessedLineHandler.cs</url>
           <line>14</line>

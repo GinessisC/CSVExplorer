@@ -4,6 +4,7 @@ using CsvConsoleExplorer.Handlers;
 using CsvConsoleExplorer.Interfaces;
 using CsvConsoleExplorer.TextHandling;
 using CsvConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.TextHandling.Extensions;
 using NSubstitute;
 using Xunit;
 
@@ -11,6 +12,7 @@ namespace CsvExplorer.Test;
 
 public class TestDataGenerator : IEnumerable<object[]>
 {
+	const char Separator = ',';
 	private readonly List<object[]> _data = new()
 	{
 		new object[] {5, 1, 3, 9},
@@ -21,87 +23,98 @@ public class TestDataGenerator : IEnumerable<object[]>
 }
 public class TextHandlerTest
 {
-	private const string TestPath = "C:\\Test\\test.csv";
-	
+	const char Separator = ',';
+	const string TestPath = "test.csv";
 	[Theory]
 	[DisplayName("Checks for correct parsed lines")]
-	[MemberData(nameof(GetCorrectOnlyDataForParsing))]
+	[MemberData(nameof(GetCorrectOnlyLines))]
 	public async Task ParsingNumericalLinesOnlyCorrectly(IEnumerable<string> receivedLines)
 	{
 		//Arrange 
 		SumInLineCalculator sumInLineCalculator = new();
 		CsvUnprocessedLineHandler unprocessedLineHandler = new();
 		ILinesReceiver linesReceiver = Substitute.For<ILinesReceiver>();
-		IAsyncEnumerable<string[]> lines = GetEmptyEnumerable();
 		
 		linesReceiver.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
-		CsvLineParser parser = new(sumInLineCalculator, unprocessedLineHandler, linesReceiver, ',');
+		CsvLineParser parser = new(sumInLineCalculator, unprocessedLineHandler, linesReceiver, Separator);
 		
 		//Act
-		
 		ParsedDataFromCsvFile parsedData = await parser.ParseCsvFile(TestPath);
 		var numbers = parsedData.GetLineWithBiggestSum().Elements
-			.Select(int.Parse);
+			.Select(long.Parse);
+		
 		//Assert
 		Assert.Equal(11, numbers.Sum());
 	}
 	[Theory]
 	[DisplayName("Checks for correct parsed lines")]
-	[MemberData(nameof(GetIncorrectOnlyLineForParsing))]
-	public async Task ParsingUnprocessedLinesOnly(string receivedLine)
+	[MemberData(nameof(GetIncorrectOnlyLines))]
+	public async Task ParsingUnprocessedLinesOnly(IEnumerable<string> receivedLines)
 	{
 		//Arrange 
 		SumInLineCalculator sumInLineCalculator = new();
 		CsvUnprocessedLineHandler unprocessedLineHandler = new();
 		ILinesReceiver linesReceiver = Substitute.For<ILinesReceiver>();
-
-		string[] arrayWithUnprocessedLine = new[]
-		{
-			receivedLine
-		};
 		
-		linesReceiver.ReadLines(TestPath).Returns(arrayWithUnprocessedLine.ToAsyncEnumerable());
+		linesReceiver.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
 		CsvLineParser parser = new(sumInLineCalculator, unprocessedLineHandler, linesReceiver, ',');
 		
 		//Act
-		
-		
-		
 		ParsedDataFromCsvFile parsedData = await parser.ParseCsvFile(TestPath);
-		IEnumerable<CsvLine> unprocessedLines = parsedData.GetUnprocessedLines().ToBlockingEnumerable();
+		var unprocessedLines = parsedData.GetUnprocessedLines();
+
+		var isElementsNumerical = unprocessedLines.AllAsync(line => line.IsNumerical());
+		
 		//Assert
-		List<bool> result = new();
-
-		List<string> elements = receivedLine.Split(',').ToList();
-
-		foreach (string element in elements)
-		{
-			foreach(CsvLine line in unprocessedLines)
-			{
-				result.Add(line.Elements.ToList().Contains(element));
-			}
-		}
-
-		Assert.True(result.All(x => x));
+		Assert.False(await isElementsNumerical);
 	}
-	public static IEnumerable<object[]> GetCorrectOnlyDataForParsing()
+
+	[Theory]
+	[MemberData(nameof(GetIncorrectAndCorrectLines))]
+	public async Task ParsingIncorrectAndCorrectLines(IEnumerable<string> receivedLines)
+	{
+		//Arrange
+		SumInLineCalculator calculator = new();
+		CsvUnprocessedLineHandler unprocessedLineHandler = new();
+		ILinesReceiver linesReceiver = Substitute.For<ILinesReceiver>();
+		linesReceiver.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
+		
+		CsvLineParser parser = new(calculator, unprocessedLineHandler, linesReceiver, Separator);
+		
+		//Act 
+		var data = await parser.ParseCsvFile(TestPath);
+		
+		//Assert
+		var unprocessedLines = data.GetUnprocessedLines();
+		var lineWithBiggestSum = data.GetLineWithBiggestSum().Elements.Select(long.Parse);
+		
+		Assert.Equal(15, lineWithBiggestSum.Sum());
+		var unprocessedLinesArray = await unprocessedLines.ToArrayAsync();
+		Assert.Contains("", unprocessedLinesArray[0].Elements);
+		Assert.Contains("t", unprocessedLinesArray[1].Elements);
+		
+		
+	}
+	public static IEnumerable<object[]> GetCorrectOnlyLines()
 	{
 		yield return new object[]
 		{
-			new[] {"1,2,3", "3,4", "5,6"},
+			new[] {"1,2", "3,3", "5,6"},
 		};
 	}
-	public static IEnumerable<object[]> GetIncorrectOnlyLineForParsing()
+	public static IEnumerable<object[]> GetIncorrectOnlyLines()
 	{
 		yield return new object[]
 		{
-			"test,abc,t"
+			new[] {"1,2,t", "1,2,", "1,,"}
 		};
 	}
 
-	private static async IAsyncEnumerable<string[]> GetEmptyEnumerable()
+	public static IEnumerable<object[]> GetIncorrectAndCorrectLines()
 	{
-		await Task.CompletedTask;
-		yield break;
+		yield return new object[]
+		{
+			new[] {"1,2,3", "4,5,6", "1,,", "23,34,t"}
+		};
 	}
 }
