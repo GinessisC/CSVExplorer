@@ -1,6 +1,6 @@
-using CsvConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.FileParsing.Components;
 
-namespace CsvConsoleExplorer.TextHandling.Extensions;
+namespace CsvConsoleExplorer.FileParsing.Extensions;
 public static class CsvLineExtension
 {
 	public static bool IsNumerical(this CsvLine line) 

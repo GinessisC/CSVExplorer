@@ -1,8 +1,7 @@
+using CsvConsoleExplorer.FileParsing.Components;
 using CsvConsoleExplorer.Interfaces;
-using CsvConsoleExplorer.TextHandling.Components;
 
 namespace CsvConsoleExplorer.Handlers;
-
 public abstract class LineHandlerBase : ILineHandler
 {
 	private ILineHandler? _lineHandler;

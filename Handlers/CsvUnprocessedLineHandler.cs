@@ -1,6 +1,6 @@
+using CsvConsoleExplorer.FileParsing.Components;
+using CsvConsoleExplorer.FileParsing.Extensions;
 using CsvConsoleExplorer.Interfaces;
-using CsvConsoleExplorer.TextHandling.Components;
-using CsvConsoleExplorer.TextHandling.Extensions;
 
 namespace CsvConsoleExplorer.Handlers;
 public class CsvUnprocessedLineHandler : LineHandlerBase, IUnprocessedLineHandler

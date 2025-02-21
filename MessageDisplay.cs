@@ -1,6 +1,6 @@
+using CsvConsoleExplorer.FileParsing;
 using CsvConsoleExplorer.Interfaces;
-using CsvConsoleExplorer.TextHandling;
-using CsvConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.FileParsing.Components;
 
 namespace CsvConsoleExplorer;
 public class MessageDisplay : IMessageDisplay

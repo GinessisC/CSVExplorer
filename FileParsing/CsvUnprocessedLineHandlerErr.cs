@@ -1,6 +1,7 @@
-using CSVConsoleExplorer.TextHandling.Components;
+using CsvConsoleExplorer.FileParsing.Components;
+using CsvConsoleExplorer.TextHandling.Components;
 
-namespace CSVConsoleExplorer.TextHandling;
+namespace CSVConsoleExplorer.FileParsing;
 
 public class CsvUnprocessedLineHandlerErr
 {

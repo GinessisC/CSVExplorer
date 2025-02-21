@@ -1,7 +1,7 @@
+using CsvConsoleExplorer.FileParsing.Components;
 using CsvConsoleExplorer.Interfaces;
-using CsvConsoleExplorer.TextHandling.Components;
 
-namespace CsvConsoleExplorer.TextHandling;
+namespace CsvConsoleExplorer.FileParsing;
 public class CsvLineParser : ICsvLineParser
 {
 	private readonly char _separator = ';';

@@ -1,13 +1,13 @@
+using CsvConsoleExplorer.FileParsing.Components;
 using CsvConsoleExplorer.Interfaces;
-using CsvConsoleExplorer.TextHandling.Components;
 
-namespace CsvConsoleExplorer.TextHandling;
+namespace CsvConsoleExplorer.FileParsing;
 
 public record ParsedDataFromCsvFile
 {
 	private readonly IUnprocessedLineHandler _unprocessedLineHandler;
 	private readonly ISumInLineCalculator _lineWithTheBiggestSum;
-
+	
 	public ParsedDataFromCsvFile(ISumInLineCalculator lineWithTheBiggestSum,
 		IUnprocessedLineHandler unprocessedLineHandler)
 	{

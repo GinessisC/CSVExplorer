@@ -1,8 +1,8 @@
 ﻿using Cocona;
 using CsvConsoleExplorer;
+using CsvConsoleExplorer.FileParsing;
 using CsvConsoleExplorer.Handlers;
 using CsvConsoleExplorer.Interfaces;
-using CsvConsoleExplorer.TextHandling;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = CoconaApp.CreateBuilder();
@@ -33,7 +33,6 @@ app.AddCommand(async (IMessageDisplay display) =>
 	{
 		await display.ParseCsvFileAndDisplayData(path);
 	}
-	await app.RunAsync();
 
 });
 
