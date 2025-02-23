@@ -9,31 +9,44 @@ var builder = CoconaApp.CreateBuilder();
 
 builder.Services.AddTransient<ISumInLineCalculator, SumInLineCalculator>();
 builder.Services.AddTransient<IUnprocessedLineHandler, CsvUnprocessedLineHandler>();
-builder.Services.AddScoped<ILinesReceiver, LinesFromFileReceiver>();
+builder.Services.AddScoped<ILinesReader, CsvLinesReader>();
 builder.Services.AddTransient<ICsvLineParser, CsvLineParser>();
 
-builder.Services.AddTransient<IMessageDisplay, MessageDisplay>();
-
+builder.Services.AddTransient<IOutputDisplay, ConsoleOutputDisplay>();
 
 var app = builder.Build();
 app.AddCommand("processfile",async (string filePath,
-	MessageDisplay display) =>
+	IOutputDisplay display) =>
 {
-	await display.ParseCsvFileAndDisplayData(filePath);
-	await app.RunAsync();
-
+	await TryProcessAsync(display, filePath);
 });
 
-app.AddCommand(async (IMessageDisplay display) =>
+app.AddCommand(async (IOutputDisplay display) =>
 {
 	Console.WriteLine("Enter path to CSV file: ");
-	var path = Console.ReadLine();
+	var filePath = Console.ReadLine();
 	
-	if (!string.IsNullOrWhiteSpace(path))
-	{
-		await display.ParseCsvFileAndDisplayData(path);
-	}
-
+	await TryProcessAsync(display, filePath);
 });
 
 await app.RunAsync();
+
+static async Task TryProcessAsync(IOutputDisplay display, string path)
+{
+	try
+	{
+		await ProcessAsync(display, path);
+	}
+	catch (Exception e)
+	{
+		Console.WriteLine(e);
+	}
+}
+
+static async Task ProcessAsync(IOutputDisplay display, string path)
+{
+	if (string.IsNullOrWhiteSpace(path) is false)
+	{
+		await display.DisplayParsedFileData(path);
+	}
+}

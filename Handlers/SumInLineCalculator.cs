@@ -9,7 +9,7 @@ public class SumInLineCalculator : LineHandlerBase, ISumInLineCalculator
 	private long _biggestSumInLines;
 	private CsvLine _lineWithTheBiggestSum = new(default, 0);
 	
-	public CsvLine GetLineWithTheBiggestSum()
+	public CsvLine GetLineWithBiggestSum()
 	{
 		return _lineWithTheBiggestSum;
 	}
@@ -28,7 +28,6 @@ public class SumInLineCalculator : LineHandlerBase, ISumInLineCalculator
 			if (_biggestSumInLines < currentSum)
 			{
 				_biggestSumInLines = currentSum;
-
 				_lineWithTheBiggestSum = line;
 			}
 		});

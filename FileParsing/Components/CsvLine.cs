@@ -1,11 +1,8 @@
-using System.Numerics;
-
 namespace CsvConsoleExplorer.FileParsing.Components;
-
 public class CsvLine
 {
-	public IEnumerable<string> Elements { get; private set; }
-	public long LineNumber { get; private set; }
+	public IEnumerable<string> Elements { get; }
+	public long LineNumber { get; }
 	
 	public CsvLine(IEnumerable<string> elements, long lineNumber)
 	{

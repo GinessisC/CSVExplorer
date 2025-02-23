@@ -7,7 +7,7 @@ public class CsvUnprocessedLineHandler : LineHandlerBase, IUnprocessedLineHandle
 {
 	private IAsyncEnumerable<CsvLine> _unprocessedCsvLines = GetEmptyEnumerable();
 
-	public IAsyncEnumerable<CsvLine> GetUnprocessedCsvLines()
+	public IAsyncEnumerable<CsvLine> GetUnprocessedLines()
 	{
 		return _unprocessedCsvLines;
 	}

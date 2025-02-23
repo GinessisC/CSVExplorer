@@ -17,10 +17,10 @@ public record ParsedDataFromCsvFile
 	
 	public IAsyncEnumerable<CsvLine> GetUnprocessedLines()
 	{
-		return _unprocessedLineHandler.GetUnprocessedCsvLines();
+		return _unprocessedLineHandler.GetUnprocessedLines();
 	}
 	public CsvLine GetLineWithBiggestSum()
 	{
-		return _lineWithTheBiggestSum.GetLineWithTheBiggestSum();
+		return _lineWithTheBiggestSum.GetLineWithBiggestSum();
 	}
 }

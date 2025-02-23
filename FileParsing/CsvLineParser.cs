@@ -7,24 +7,24 @@ public class CsvLineParser : ICsvLineParser
 	private readonly char _separator = ';';
 	private readonly ISumInLineCalculator _sumInLineCalculator;
 	private readonly IUnprocessedLineHandler _unprocessedLineHandler;
-	private readonly ILinesReceiver _linesReceiver;
+	private readonly ILinesReader _linesReader;
 	
 	public CsvLineParser(ISumInLineCalculator sumInLineCalculator,
 		IUnprocessedLineHandler unprocessedLineHandler,
-		ILinesReceiver linesReceiver)
+		ILinesReader linesReader)
 	{
 		_sumInLineCalculator = sumInLineCalculator;
 		_unprocessedLineHandler = unprocessedLineHandler;
-		_linesReceiver = linesReceiver;
+		_linesReader = linesReader;
 	}
 	
 	public CsvLineParser(ISumInLineCalculator sumInLineCalculator,
 		IUnprocessedLineHandler unprocessedLineHandler,
-		ILinesReceiver linesReceiver, char separator)
+		ILinesReader linesReader, char separator)
 	{
 		_sumInLineCalculator = sumInLineCalculator;
 		_unprocessedLineHandler = unprocessedLineHandler;
-		_linesReceiver = linesReceiver;
+		_linesReader = linesReader;
 		_separator = separator;
 	}
 	
@@ -33,19 +33,17 @@ public class CsvLineParser : ICsvLineParser
 		_unprocessedLineHandler.SetHandler(_sumInLineCalculator);
 		
 		var i = 0;
-		await foreach (var line in _linesReceiver.ReadLines(filePath))
+		await foreach (string line in _linesReader.ReadLines(filePath))
 		{
 			i++;
-			var currentLine = ConvertToCsvLine(line, i);
+			CsvLine currentLine = ConvertToCsvLine(line, i);
 			await _unprocessedLineHandler.HandleLine(currentLine);
 		} 
 		return new ParsedDataFromCsvFile(_sumInLineCalculator, _unprocessedLineHandler);
 	}
-
 	private CsvLine ConvertToCsvLine(string line, int lineNumber)
 	{
 		var elements = line.Split(_separator).ToList();
-		var elementsAsyncEnumerable = elements;
-		return new CsvLine(elementsAsyncEnumerable, lineNumber);
+		return new CsvLine(elements, lineNumber);
 	}
 }

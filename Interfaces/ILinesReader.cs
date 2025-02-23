@@ -1,6 +1,6 @@
 namespace CsvConsoleExplorer.Interfaces;
 
-public interface ILinesReceiver
+public interface ILinesReader
 {
 	IAsyncEnumerable<string> ReadLines(string filePath);
 }

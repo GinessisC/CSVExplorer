@@ -14,15 +14,15 @@ public class TextHandlerTest
 	
 	[Theory]
 	[MemberData(nameof(CorrectOnlyLines))]
-	public async Task ParsingNumericalLinesOnlyCorrectly(IEnumerable<string> receivedLines) //Not fast: why?
+	public async Task ParsingNumericalLinesOnly(IEnumerable<string> receivedLines) //Not fast: why?
 	{
 		//Arrange 
 		SumInLineCalculator sumCalculator = new();
 		CsvUnprocessedLineHandler unprocessedLineHandler = new();
-		ILinesReceiver linesReceiver = Substitute.For<ILinesReceiver>();
+		ILinesReader linesReader = Substitute.For<ILinesReader>();
 		
-		linesReceiver.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
-		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReceiver, Separator);
+		linesReader.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
+		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReader, Separator);
 		
 		//Act
 		ParsedDataFromCsvFile data = await parser.ParseCsvFile(TestPath);
@@ -40,10 +40,10 @@ public class TextHandlerTest
 		//Arrange 
 		SumInLineCalculator sumCalculator = new();
 		CsvUnprocessedLineHandler unprocessedLineHandler = new();
-		ILinesReceiver linesReceiver = Substitute.For<ILinesReceiver>();
+		ILinesReader linesReader = Substitute.For<ILinesReader>();
 		
-		linesReceiver.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
-		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReceiver, Separator);
+		linesReader.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
+		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReader, Separator);
 		
 		//Act
 		ParsedDataFromCsvFile data = await parser.ParseCsvFile(TestPath);
@@ -63,10 +63,10 @@ public class TextHandlerTest
 		//Arrange
 		SumInLineCalculator sumCalculator = new();
 		CsvUnprocessedLineHandler unprocessedLineHandler = new();
-		ILinesReceiver linesReceiver = Substitute.For<ILinesReceiver>();
+		ILinesReader linesReader = Substitute.For<ILinesReader>();
 		
-		linesReceiver.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
-		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReceiver, Separator);
+		linesReader.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
+		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReader, Separator);
 		
 		//Act 
 		ParsedDataFromCsvFile data = await parser.ParseCsvFile(TestPath);
