@@ -93,7 +93,7 @@ public class TextHandlerTest
 	}
 	private async Task<bool> AreAllLinesValid(IAsyncEnumerable<CsvLine> unprocessedLines)
 	{
-		var areElementsNumerical = unprocessedLines.AllAsync(line => line.IsNumerical()); //Why ValueTask? Bc we use here short-term operation that is completed sync?   
+		var areElementsNumerical = unprocessedLines.AllAsync(line => line.IsNumerical());
 		return await areElementsNumerical;
 	}
 	private void AssertUnprocessedLines(CsvLine[] unprocessedLines)
