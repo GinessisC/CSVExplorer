@@ -2,7 +2,6 @@ using CsvConsoleExplorer.FileParsing.Components;
 using CsvConsoleExplorer.Interfaces;
 
 namespace CsvConsoleExplorer.FileParsing;
-
 public record ParsedDataFromCsvFile
 {
 	private readonly IUnprocessedLineHandler _unprocessedLineHandler;

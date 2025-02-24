@@ -13,7 +13,6 @@ public class SumInLineCalculator : LineHandlerBase, ISumInLineCalculator
 	{
 		return _lineWithTheBiggestSum;
 	}
-
 	protected override bool CanHandle(CsvLine line)
 	{
 		return line.IsNumerical();
@@ -24,7 +23,7 @@ public class SumInLineCalculator : LineHandlerBase, ISumInLineCalculator
 		{
 			var numbers = line.Elements.Select(long.Parse);
 			var currentSum = numbers.Sum();
-		
+			
 			if (_biggestSumInLines < currentSum)
 			{
 				_biggestSumInLines = currentSum;

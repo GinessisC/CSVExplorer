@@ -14,7 +14,7 @@ public class TextHandlerTest
 	
 	[Theory]
 	[MemberData(nameof(CorrectOnlyLines))]
-	public async Task ParsingNumericalLinesOnly(IEnumerable<string> receivedLines) //Not fast: why?
+	public async Task ParsingNumericalLinesOnly(IEnumerable<string> receivedLines)
 	{
 		//Arrange 
 		SumInLineCalculator sumCalculator = new();
