@@ -44,6 +44,6 @@ public class CsvLineParser : ICsvLineParser
 	private CsvLine ConvertToCsvLine(string line, int lineNumber)
 	{
 		var elements = line.Split(_separator).ToList();
-		return new CsvLine(elements, lineNumber);
+		return new CsvLine(elements, lineNumber); 
 	}
 }
