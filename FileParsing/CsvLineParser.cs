@@ -4,7 +4,7 @@ using CsvConsoleExplorer.Interfaces;
 namespace CsvConsoleExplorer.FileParsing;
 public class CsvLineParser : ICsvLineParser
 {
-	private readonly char _separator = ';';
+	private readonly char _separator = ',';
 	private readonly ISumInLineCalculator _sumInLineCalculator;
 	private readonly IUnprocessedLineHandler _unprocessedLineHandler;
 	private readonly ILinesReader _linesReader;
