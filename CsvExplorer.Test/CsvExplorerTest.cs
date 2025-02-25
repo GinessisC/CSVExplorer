@@ -9,7 +9,6 @@ using Xunit;
 namespace CsvExplorer.Test;
 public class TextHandlerTest
 {
-	const char Separator = ',';
 	const string TestPath = "test.csv";
 	
 	[Theory]
@@ -22,7 +21,7 @@ public class TextHandlerTest
 		ILinesReader linesReader = Substitute.For<ILinesReader>();
 		
 		linesReader.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
-		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReader, Separator);
+		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReader);
 		
 		//Act
 		ParsedDataFromCsvFile data = await parser.ParseCsvFile(TestPath);
@@ -43,7 +42,7 @@ public class TextHandlerTest
 		ILinesReader linesReader = Substitute.For<ILinesReader>();
 		
 		linesReader.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
-		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReader, Separator);
+		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReader);
 		
 		//Act
 		ParsedDataFromCsvFile data = await parser.ParseCsvFile(TestPath);
@@ -66,7 +65,7 @@ public class TextHandlerTest
 		ILinesReader linesReader = Substitute.For<ILinesReader>();
 		
 		linesReader.ReadLines(TestPath).Returns(receivedLines.ToAsyncEnumerable());
-		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReader, Separator);
+		CsvLineParser parser = new(sumCalculator, unprocessedLineHandler, linesReader);
 		
 		//Act 
 		ParsedDataFromCsvFile data = await parser.ParseCsvFile(TestPath);

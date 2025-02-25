@@ -18,16 +18,6 @@ public class CsvLineParser : ICsvLineParser
 		_linesReader = linesReader;
 	}
 	
-	public CsvLineParser(ISumInLineCalculator sumInLineCalculator,
-		IUnprocessedLineHandler unprocessedLineHandler,
-		ILinesReader linesReader, char separator)
-	{
-		_sumInLineCalculator = sumInLineCalculator;
-		_unprocessedLineHandler = unprocessedLineHandler;
-		_linesReader = linesReader;
-		_separator = separator;
-	}
-	
 	public async Task<ParsedDataFromCsvFile> ParseCsvFile(string filePath)
 	{
 		_unprocessedLineHandler.SetHandler(_sumInLineCalculator);
